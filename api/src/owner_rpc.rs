@@ -1398,7 +1398,7 @@ pub fn run_doctest_owner(
 	}
 
 	if perform_tx {
-		let amount = 60_000_000_000;
+		let amount = 1_000_000_000_000;
 		let mut w = wallet1.lock();
 		w.open_with_credentials().unwrap();
 		let args = InitTxArgs {

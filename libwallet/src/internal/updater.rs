@@ -475,7 +475,7 @@ where
 
 	{
 		// Now acquire the wallet lock and write the new output.
-		let amount = reward(block_fees.fees, height);
+		let amount = reward(height, block_fees.fees);
 		let commit = wallet.calc_commit_for_cache(amount, &key_id)?;
 		let mut batch = wallet.batch()?;
 		batch.save(OutputData {

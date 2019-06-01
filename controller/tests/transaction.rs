@@ -72,7 +72,7 @@ fn basic_transaction_api(test_dir: &str) -> Result<(), libwallet::Error> {
 	});
 
 	// few values to keep things shorter
-	let reward = core::consensus::REWARD;
+	let reward = core::consensus::INITIAL_REWARD;
 	let cm = global::coinbase_maturity();
 	// mine a few blocks
 	let _ = test_framework::award_blocks_to_wallet(&chain, wallet1.clone(), 10, false);
@@ -95,7 +95,7 @@ fn basic_transaction_api(test_dir: &str) -> Result<(), libwallet::Error> {
 
 	// assert wallet contents
 	// and a single use api for a send command
-	let amount = 60_000_000_000;
+	let amount = 1_000_000_000_000;
 	let mut slate = Slate::blank(1);
 	wallet::controller::owner_single_use(wallet1.clone(), |sender_api| {
 		// note this will increment the block count as part of the transaction "Posting"
@@ -262,7 +262,7 @@ fn basic_transaction_api(test_dir: &str) -> Result<(), libwallet::Error> {
 			..Default::default()
 		};
 		let est = sender_api.init_send_tx(init_args)?;
-		assert_eq!(est.amount, 600_000_000_000);
+		assert_eq!(est.amount, 10_000_000_000_000);
 		assert_eq!(est.fee, 4_000_000);
 
 		let init_args = InitTxArgs {
@@ -276,7 +276,7 @@ fn basic_transaction_api(test_dir: &str) -> Result<(), libwallet::Error> {
 			..Default::default()
 		};
 		let est = sender_api.init_send_tx(init_args)?;
-		assert_eq!(est.amount, 180_000_000_000);
+		assert_eq!(est.amount, 3_000_000_000_000);
 		assert_eq!(est.fee, 6_000_000);
 
 		Ok(())
@@ -376,7 +376,7 @@ fn tx_rollback(test_dir: &str) -> Result<(), libwallet::Error> {
 	});
 
 	// few values to keep things shorter
-	let reward = core::consensus::REWARD;
+	let reward = core::consensus::INITIAL_REWARD;
 	let cm = global::coinbase_maturity(); // assume all testing precedes soft fork height
 									  // mine a few blocks
 	let _ = test_framework::award_blocks_to_wallet(&chain, wallet1.clone(), 5, false);
