@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -92,12 +92,12 @@ where
 	C: NodeClient,
 	K: Keychain,
 {
-	/// Create a new client that will communicate with the given grin node
+	/// Create a new client that will communicate with the given kepler node
 	pub fn new(chain_dir: &str) -> Self {
 		set_mining_mode(ChainTypes::AutomatedTesting);
 		let genesis_block = pow::mine_genesis_block().unwrap();
 		let verifier_cache = Arc::new(RwLock::new(LruVerifierCache::new()));
-		let dir_name = format!("{}/.grin", chain_dir);
+		let dir_name = format!("{}/.kepler", chain_dir);
 		let c = Chain::init(
 			dir_name.to_string(),
 			Arc::new(NoopAdapter {}),
@@ -402,7 +402,7 @@ impl NodeClient for LocalWalletClient {
 	}
 	fn set_node_url(&mut self, _node_url: &str) {}
 	fn set_node_api_secret(&mut self, _node_api_secret: Option<String>) {}
-	/// Posts a transaction to a grin node
+	/// Posts a transaction to a kepler node
 	/// In this case it will create a new block with award rewarded to
 	fn post_tx(&self, tx: &TxWrapper, _fluff: bool) -> Result<(), libwallet::Error> {
 		let m = WalletProxyMessage {

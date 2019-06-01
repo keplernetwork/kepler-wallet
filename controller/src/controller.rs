@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -45,8 +45,8 @@ use easy_jsonrpc;
 use easy_jsonrpc::{Handler, MaybeReply};
 
 lazy_static! {
-	pub static ref GRIN_OWNER_BASIC_REALM: HeaderValue =
-		HeaderValue::from_str("Basic realm=GrinOwnerAPI").unwrap();
+	pub static ref KEPLER_OWNER_BASIC_REALM: HeaderValue =
+		HeaderValue::from_str("Basic realm=KeplerOwnerAPI").unwrap();
 }
 
 /// Instantiate wallet Owner API for a single-use (command line) call
@@ -96,10 +96,10 @@ where
 	let mut router = Router::new();
 	if api_secret.is_some() {
 		let api_basic_auth =
-			"Basic ".to_string() + &to_base64(&("grin:".to_string() + &api_secret.unwrap()));
+			"Basic ".to_string() + &to_base64(&("kepler:".to_string() + &api_secret.unwrap()));
 		let basic_auth_middleware = Arc::new(BasicAuthMiddleware::new(
 			api_basic_auth,
-			&GRIN_OWNER_BASIC_REALM,
+			&KEPLER_OWNER_BASIC_REALM,
 		));
 		router.add_middleware(basic_auth_middleware);
 	}
@@ -363,7 +363,7 @@ where
 			let mut slate = match result {
 				Ok(s) => {
 					info!(
-						"Tx created: {} grin to {} (strategy '{}')",
+						"Tx created: {} kepler to {} (strategy '{}')",
 						core::amount_to_hr_string(args.amount, false),
 						&args.dest,
 						args.selection_strategy_is_use_all,

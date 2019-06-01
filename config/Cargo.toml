@@ -1,11 +1,11 @@
 [package]
-name = "grin_wallet_config"
+name = "kepler_wallet_config"
 version = "1.1.0-beta.4"
-authors = ["Grin Developers <mimblewimble@lists.launchpad.net>"]
-description = "Configuration for grin wallet , a simple, private and scalable cryptocurrency implementation based on the MimbleWimble chain format."
+authors = ["Kepler Developers <keplernetwork@lists.launchpad.net>"]
+description = "Configuration for kepler wallet , a simple, private and scalable cryptocurrency implementation based on the MimbleWimble chain format."
 license = "Apache-2.0"
-repository = "https://github.com/mimblewimble/grin-wallet"
-keywords = [ "crypto", "grin", "mimblewimble" ]
+repository = "https://github.com/keplernetwork/kepler-wallet"
+keywords = [ "crypto", "kepler", "keplernetwork" ]
 workspace = ".."
 edition = "2018"
 
@@ -16,7 +16,7 @@ serde_derive = "1"
 toml = "0.4"
 dirs = "1.0.3"
 
-grin_wallet_util = { path = "../util", version = "1.1.0-beta.4" }
+kepler_wallet_util = { path = "../util", version = "1.1.0-beta.4" }
 
 [dev-dependencies]
 pretty_assertions = "0.5.1"

@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,14 +19,14 @@ use std::collections::HashMap;
 use uuid::Uuid;
 
 use crate::error::Error;
-use crate::grin_core::consensus::reward;
-use crate::grin_core::core::{Output, TxKernel};
-use crate::grin_core::global;
-use crate::grin_core::libtx::reward;
-use crate::grin_keychain::{Identifier, Keychain};
-use crate::grin_util as util;
-use crate::grin_util::secp::pedersen;
 use crate::internal::keys;
+use crate::kepler_core::consensus::reward;
+use crate::kepler_core::core::{Output, TxKernel};
+use crate::kepler_core::global;
+use crate::kepler_core::libtx::reward;
+use crate::kepler_keychain::{Identifier, Keychain};
+use crate::kepler_util as util;
+use crate::kepler_util::secp::pedersen;
 use crate::types::{
 	NodeClient, OutputData, OutputStatus, TxLogEntry, TxLogEntryType, WalletBackend, WalletInfo,
 };
@@ -475,7 +475,7 @@ where
 
 	{
 		// Now acquire the wallet lock and write the new output.
-		let amount = reward(block_fees.fees);
+		let amount = reward(block_fees.fees, height);
 		let commit = wallet.calc_commit_for_cache(amount, &key_id)?;
 		let mut batch = wallet.batch()?;
 		batch.save(OutputData {
@@ -505,6 +505,12 @@ where
 
 	debug!("receive_coinbase: {:?}", block_fees);
 
-	let (out, kern) = reward::output(wallet.keychain(), &key_id, block_fees.fees, test_mode)?;
+	let (out, kern) = reward::output(
+		wallet.keychain(),
+		&key_id,
+		block_fees.fees,
+		height,
+		test_mode,
+	)?;
 	Ok((out, kern, block_fees))
 }

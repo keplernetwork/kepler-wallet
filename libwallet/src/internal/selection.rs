@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@
 //! Selection of inputs for building transactions
 
 use crate::error::{Error, ErrorKind};
-use crate::grin_core::core::amount_to_hr_string;
-use crate::grin_core::libtx::{build, tx_fee};
-use crate::grin_keychain::{Identifier, Keychain};
 use crate::internal::keys;
+use crate::kepler_core::core::amount_to_hr_string;
+use crate::kepler_core::libtx::{build, tx_fee};
+use crate::kepler_keychain::{Identifier, Keychain};
 use crate::slate::Slate;
 use crate::types::*;
 use std::collections::HashMap;
@@ -124,7 +124,7 @@ where
 		let log_id = batch.next_tx_log_id(&parent_key_id)?;
 		let mut t = TxLogEntry::new(parent_key_id.clone(), TxLogEntryType::TxSent, log_id);
 		t.tx_slate_id = Some(slate_id.clone());
-		let filename = format!("{}.grintx", slate_id);
+		let filename = format!("{}.keplertx", slate_id);
 		t.stored_tx = Some(filename);
 		t.fee = Some(slate.fee);
 		let mut amount_debited = 0;

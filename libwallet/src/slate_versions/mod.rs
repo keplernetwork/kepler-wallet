@@ -1,4 +1,4 @@
-// Copyright 2019 The Grin Developers
+// Copyright 2019 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -29,8 +29,8 @@ pub mod v2;
 /// The most recent version of the slate
 pub const CURRENT_SLATE_VERSION: u16 = 2;
 
-/// The grin block header this slate is intended to be compatible with
-pub const GRIN_BLOCK_HEADER_VERSION: u16 = 1;
+/// The kepler block header this slate is intended to be compatible with
+pub const KEPLER_BLOCK_HEADER_VERSION: u16 = 1;
 
 /// Existing versions of the slate
 #[derive(EnumIter, Serialize, Deserialize, Clone, Debug, PartialEq, PartialOrd, Eq, Ord)]
@@ -50,9 +50,9 @@ pub enum SlateVersion {
 pub enum VersionedSlate {
 	/// Current
 	V2(SlateV2),
-	/// V1 - Grin 1.0.1 - 1.0.3)
+	/// V1 - Kepler 1.0.1 - 1.0.3)
 	V1(SlateV1),
-	/// V0 - Grin 1.0.0
+	/// V0 - Kepler 1.0.0
 	V0(SlateV0),
 }
 

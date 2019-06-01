@@ -1,4 +1,4 @@
-// Copyright 2019 The Grin Developers
+// Copyright 2019 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,11 +22,11 @@
 #![deny(unused_mut)]
 #![warn(missing_docs)]
 
-use grin_wallet_util::grin_core as core;
-use grin_wallet_util::grin_keychain as keychain;
-use grin_wallet_util::grin_util as util;
-extern crate grin_wallet_impls as impls;
-extern crate grin_wallet_libwallet as libwallet;
+use kepler_wallet_util::kepler_core as core;
+use kepler_wallet_util::kepler_keychain as keychain;
+use kepler_wallet_util::kepler_util as util;
+extern crate kepler_wallet_impls as impls;
+extern crate kepler_wallet_libwallet as libwallet;
 
 extern crate failure_derive;
 extern crate serde_json;

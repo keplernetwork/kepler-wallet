@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,13 +16,13 @@
 
 use uuid::Uuid;
 
-use crate::grin_core::core::hash::Hashed;
-use crate::grin_core::core::Transaction;
-use crate::grin_core::ser;
-use crate::grin_util;
+use crate::kepler_core::core::hash::Hashed;
+use crate::kepler_core::core::Transaction;
+use crate::kepler_core::ser;
+use crate::kepler_util;
 
-use crate::grin_keychain::{Identifier, Keychain};
 use crate::internal::{keys, selection, tx, updater};
+use crate::kepler_keychain::{Identifier, Keychain};
 use crate::slate::Slate;
 use crate::types::{AcctPathMapping, NodeClient, TxLogEntry, TxWrapper, WalletBackend, WalletInfo};
 use crate::{Error, ErrorKind};
@@ -393,7 +393,7 @@ where
 	let parent_key_id = w.parent_key_id();
 	if !update_outputs(w, false) {
 		return Err(ErrorKind::TransactionCancellationError(
-			"Can't contact running Grin node. Not Cancelling.",
+			"Can't contact running Kepler node. Not Cancelling.",
 		))?;
 	}
 	tx::cancel_tx(&mut *w, &parent_key_id, tx_id, tx_slate_id)
@@ -418,7 +418,7 @@ pub fn post_tx<C>(client: &C, tx: &Transaction, fluff: bool) -> Result<(), Error
 where
 	C: NodeClient,
 {
-	let tx_hex = grin_util::to_hex(ser::ser_vec(tx).unwrap());
+	let tx_hex = kepler_util::to_hex(ser::ser_vec(tx).unwrap());
 	let res = client.post_tx(&TxWrapper { tx_hex: tx_hex }, fluff);
 	if let Err(e) = res {
 		error!("api: post_tx: failed with error: {}", e);

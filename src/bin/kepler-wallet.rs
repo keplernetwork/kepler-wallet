@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Main for building the binary of a Grin Reference Wallet
+//! Main for building the binary of a Kepler Reference Wallet
 
 #[macro_use]
 extern crate clap;
@@ -22,10 +22,10 @@ extern crate log;
 use crate::core::global;
 use crate::util::init_logger;
 use clap::App;
-use grin_wallet_config as config;
-use grin_wallet_util::grin_api as api;
-use grin_wallet_util::grin_core as core;
-use grin_wallet_util::grin_util as util;
+use kepler_wallet_config as config;
+use kepler_wallet_util::kepler_api as api;
+use kepler_wallet_util::kepler_core as core;
+use kepler_wallet_util::kepler_util as util;
 use std::process::exit;
 
 mod cmd;
@@ -38,7 +38,7 @@ pub mod built_info {
 pub fn info_strings() -> (String, String) {
 	(
 		format!(
-			"This is Grin Wallet version {}{}, built for {} by {}.",
+			"This is Kepler Wallet version {}{}, built for {} by {}.",
 			built_info::PKG_VERSION,
 			built_info::GIT_VERSION.map_or_else(|| "".to_owned(), |v| format!(" (git {})", v)),
 			built_info::TARGET,
@@ -66,7 +66,7 @@ fn main() {
 }
 
 fn real_main() -> i32 {
-	let yml = load_yaml!("grin-wallet.yml");
+	let yml = load_yaml!("kepler-wallet.yml");
 	let args = App::from_yaml(yml).get_matches();
 
 	let chain_type = if args.is_present("floonet") {
@@ -97,7 +97,7 @@ fn real_main() -> i32 {
 	if !cmd::seed_exists(w.members.as_ref().unwrap().wallet.clone()) {
 		if "init" == args.subcommand().0 || "recover" == args.subcommand().0 {
 		} else {
-			println!("Wallet seed file doesn't exist. Run `grin-wallet init` first");
+			println!("Wallet seed file doesn't exist. Run `kepler-wallet init` first");
 			exit(1);
 		}
 	}

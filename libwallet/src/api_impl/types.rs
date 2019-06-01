@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,10 +14,10 @@
 
 //! Types specific to the wallet api, mostly argument serialization
 
-use crate::grin_core::core::{Output, TxKernel};
-use crate::grin_core::libtx::secp_ser;
-use crate::grin_keychain::Identifier;
-use crate::grin_util::secp::pedersen;
+use crate::kepler_core::core::{Output, TxKernel};
+use crate::kepler_core::libtx::secp_ser;
+use crate::kepler_keychain::Identifier;
+use crate::kepler_util::secp::pedersen;
 use crate::slate_versions::SlateVersion;
 use crate::types::OutputData;
 
@@ -51,10 +51,10 @@ pub struct SendTXArgs {
 pub struct InitTxArgs {
 	/// The human readable account name from which to draw outputs
 	/// for the transaction, overriding whatever the active account is as set via the
-	/// [`set_active_account`](../grin_wallet_api/owner/struct.Owner.html#method.set_active_account) method.
+	/// [`set_active_account`](../kepler_wallet_api/owner/struct.Owner.html#method.set_active_account) method.
 	pub src_acct_name: Option<String>,
 	#[serde(with = "secp_ser::string_or_u64")]
-	/// The amount to send, in nanogrins. (`1 G = 1_000_000_000nG`)
+	/// The amount to send, in nanokeplers. (`1 K = 1_000_000_000nK`)
 	pub amount: u64,
 	#[serde(with = "secp_ser::string_or_u64")]
 	/// The minimum number of confirmations an output
@@ -135,9 +135,9 @@ impl Default for InitTxArgs {
 pub struct IssueInvoiceTxArgs {
 	/// The human readable account name to which the received funds should be added
 	/// overriding whatever the active account is as set via the
-	/// [`set_active_account`](../grin_wallet_api/owner/struct.Owner.html#method.set_active_account) method.
+	/// [`set_active_account`](../kepler_wallet_api/owner/struct.Owner.html#method.set_active_account) method.
 	pub dest_acct_name: Option<String>,
-	/// The invoice amount in nanogrins. (`1 G = 1_000_000_000nG`)
+	/// The invoice amount in nanokeplers. (`1 K = 1_000_000_000nK`)
 	#[serde(with = "secp_ser::string_or_u64")]
 	pub amount: u64,
 	/// Optional message, that will be signed

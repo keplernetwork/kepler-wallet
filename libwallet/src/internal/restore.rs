@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,11 +13,11 @@
 // limitations under the License.
 //! Functions to restore a wallet's outputs from just the master seed
 
-use crate::grin_core::global;
-use crate::grin_core::libtx::proof;
-use crate::grin_keychain::{ExtKeychain, Identifier, Keychain};
-use crate::grin_util::secp::{key::SecretKey, pedersen};
 use crate::internal::{keys, updater};
+use crate::kepler_core::global;
+use crate::kepler_core::libtx::proof;
+use crate::kepler_keychain::{ExtKeychain, Identifier, Keychain};
+use crate::kepler_util::secp::{key::SecretKey, pedersen};
 use crate::types::*;
 use crate::{Error, OutputCommitMapping};
 use std::collections::HashMap;
@@ -69,7 +69,7 @@ where
 	let mut wallet_outputs: Vec<OutputResult> = Vec::new();
 
 	warn!(
-		"Scanning {} outputs in the current Grin utxo set",
+		"Scanning {} outputs in the current Kepler utxo set",
 		outputs.len(),
 	);
 
@@ -89,7 +89,7 @@ where
 			*height
 		};
 
-		// TODO: Output paths are always going to be length 3 for now, but easy enough to grind
+		// TODO: Output paths are always going to be length 3 for now, but easy enough to keplerd
 		// through to find the right path if required later
 		let key_id = Identifier::from_serialized_path(3u8, &info.message.as_bytes());
 

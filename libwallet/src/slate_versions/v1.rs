@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,17 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Contains V1 of the slate (grin 1.0.1, 1.0.2)
+//! Contains V1 of the slate (kepler 1.0.1, 1.0.2)
 //! Changes from V0:
 //! * Addition of a version field to Slate struct
 
-use crate::grin_core::core::transaction::{KernelFeatures, OutputFeatures};
-use crate::grin_core::map_vec;
-use crate::grin_keychain::BlindingFactor;
-use crate::grin_util::secp;
-use crate::grin_util::secp::key::PublicKey;
-use crate::grin_util::secp::pedersen::{Commitment, RangeProof};
-use crate::grin_util::secp::Signature;
+use crate::kepler_core::core::transaction::{KernelFeatures, OutputFeatures};
+use crate::kepler_core::map_vec;
+use crate::kepler_keychain::BlindingFactor;
+use crate::kepler_util::secp;
+use crate::kepler_util::secp::key::PublicKey;
+use crate::kepler_util::secp::pedersen::{Commitment, RangeProof};
+use crate::kepler_util::secp::Signature;
 use uuid::Uuid;
 
 use crate::slate_versions::v0::{

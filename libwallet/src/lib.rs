@@ -1,4 +1,4 @@
-// Copyright 2019 The Grin Developers
+// Copyright 2019 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,10 +22,10 @@
 #![deny(unused_mut)]
 #![warn(missing_docs)]
 
-use grin_wallet_util::grin_core;
-use grin_wallet_util::grin_keychain;
-use grin_wallet_util::grin_store;
-use grin_wallet_util::grin_util;
+use kepler_wallet_util::kepler_core;
+use kepler_wallet_util::kepler_keychain;
+use kepler_wallet_util::kepler_store;
+use kepler_wallet_util::kepler_util;
 
 use blake2_rfc as blake2;
 

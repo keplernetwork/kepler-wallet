@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,19 +17,19 @@
 
 use crate::blake2::blake2b::blake2b;
 use crate::error::{Error, ErrorKind};
-use crate::grin_core::core::amount_to_hr_string;
-use crate::grin_core::core::committed::Committed;
-use crate::grin_core::core::transaction::{
+use crate::kepler_core::core::amount_to_hr_string;
+use crate::kepler_core::core::committed::Committed;
+use crate::kepler_core::core::transaction::{
 	kernel_features, kernel_sig_msg, Input, Output, Transaction, TransactionBody, TxKernel,
 	Weighting,
 };
-use crate::grin_core::core::verifier_cache::LruVerifierCache;
-use crate::grin_core::libtx::{aggsig, build, secp_ser, tx_fee};
-use crate::grin_core::map_vec;
-use crate::grin_keychain::{BlindSum, BlindingFactor, Keychain};
-use crate::grin_util::secp::key::{PublicKey, SecretKey};
-use crate::grin_util::secp::Signature;
-use crate::grin_util::{self, secp, RwLock};
+use crate::kepler_core::core::verifier_cache::LruVerifierCache;
+use crate::kepler_core::libtx::{aggsig, build, secp_ser, tx_fee};
+use crate::kepler_core::map_vec;
+use crate::kepler_keychain::{BlindSum, BlindingFactor, Keychain};
+use crate::kepler_util::secp::key::{PublicKey, SecretKey};
+use crate::kepler_util::secp::Signature;
+use crate::kepler_util::{self, secp, RwLock};
 use failure::ResultExt;
 use rand::rngs::mock::StepRng;
 use rand::thread_rng;
@@ -45,7 +45,7 @@ use crate::slate_versions::v2::{
 	InputV2, OutputV2, ParticipantDataV2, SlateV2, TransactionBodyV2, TransactionV2, TxKernelV2,
 	VersionCompatInfoV2,
 };
-use crate::slate_versions::{CURRENT_SLATE_VERSION, GRIN_BLOCK_HEADER_VERSION};
+use crate::slate_versions::{CURRENT_SLATE_VERSION, KEPLER_BLOCK_HEADER_VERSION};
 
 /// Public data for each participant in the slate
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -124,12 +124,12 @@ impl fmt::Display for ParticipantMessageData {
 			writeln!(f, "(Recipient)")?;
 		}
 		writeln!(f, "---------------------")?;
-		let static_secp = grin_util::static_secp_instance();
+		let static_secp = kepler_util::static_secp_instance();
 		let static_secp = static_secp.lock();
 		writeln!(
 			f,
 			"Public Key: {}",
-			&grin_util::to_hex(self.public_key.serialize_vec(&static_secp, true).to_vec())
+			&kepler_util::to_hex(self.public_key.serialize_vec(&static_secp, true).to_vec())
 		)?;
 		let message = match self.message.clone() {
 			None => "None".to_owned(),
@@ -138,7 +138,7 @@ impl fmt::Display for ParticipantMessageData {
 		writeln!(f, "Message: {}", message)?;
 		let message_sig = match self.message_sig.clone() {
 			None => "None".to_owned(),
-			Some(m) => grin_util::to_hex(m.to_raw_data().to_vec()),
+			Some(m) => kepler_util::to_hex(m.to_raw_data().to_vec()),
 		};
 		writeln!(f, "Message Signature: {}", message_sig)
 	}
@@ -185,7 +185,7 @@ pub struct VersionCompatInfo {
 	pub version: u16,
 	/// Original version this slate was converted from
 	pub orig_version: u16,
-	/// The grin block header version this slate is intended for
+	/// The kepler block header version this slate is intended for
 	pub block_header_version: u16,
 }
 
@@ -240,7 +240,7 @@ impl Slate {
 			version_info: VersionCompatInfo {
 				version: CURRENT_SLATE_VERSION,
 				orig_version: CURRENT_SLATE_VERSION,
-				block_header_version: GRIN_BLOCK_HEADER_VERSION,
+				block_header_version: KEPLER_BLOCK_HEADER_VERSION,
 			},
 		}
 	}

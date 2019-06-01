@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -12,14 +12,14 @@
 // limitations under the License.
 
 //! core::libtx specific tests
-use grin_wallet_libwallet::Context;
-use grin_wallet_util::grin_core::core::transaction;
-use grin_wallet_util::grin_core::libtx::{aggsig, proof};
-use grin_wallet_util::grin_keychain::{
+use kepler_wallet_libwallet::Context;
+use kepler_wallet_util::kepler_core::core::transaction;
+use kepler_wallet_util::kepler_core::libtx::{aggsig, proof};
+use kepler_wallet_util::kepler_keychain::{
 	BlindSum, BlindingFactor, ExtKeychain, ExtKeychainPath, Keychain,
 };
-use grin_wallet_util::grin_util::secp;
-use grin_wallet_util::grin_util::secp::key::{PublicKey, SecretKey};
+use kepler_wallet_util::kepler_util::secp;
+use kepler_wallet_util::kepler_util::secp::key::{PublicKey, SecretKey};
 use rand::thread_rng;
 
 fn kernel_sig_msg() -> secp::Message {

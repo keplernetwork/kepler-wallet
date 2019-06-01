@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
 use crate::cmd::wallet_args;
 use crate::config::GlobalWalletConfig;
 use clap::ArgMatches;
-use grin_wallet_config::WalletConfig;
-use grin_wallet_impls::{HTTPNodeClient, WalletSeed, SEED_FILE};
+use kepler_wallet_config::WalletConfig;
+use kepler_wallet_impls::{HTTPNodeClient, WalletSeed, SEED_FILE};
 use std::path::PathBuf;
 use std::thread;
 use std::time::Duration;
@@ -45,19 +45,19 @@ pub fn wallet_command(wallet_args: &ArgMatches<'_>, config: GlobalWalletConfig) 
 
 	let node_client = HTTPNodeClient::new(&wallet_config.check_node_api_http_addr, None);
 
-	// TODO: Very temporary code to obsolete grin wallet for the first hard fork
+	// TODO: Very temporary code to obsolete kepler wallet for the first hard fork
 	// All tx operations call get_chain_height as a first order of business,
 	// so this is the most non-intrusive place to put this
 	match node_client.clone().chain_height() {
 		Ok(h) => {
 			if h >= 262080 {
-				let err_str = "This version of grin-wallet is obsolete as of block 252080. Please download v2.0.0 from https://github.com/mimblewimble/grin-wallet/releases";
+				let err_str = "This version of kepler-wallet is obsolete as of block 252080. Please download v2.0.0 from https://github.com/keplernetwork/kepler-wallet/releases";
 				error!("{}", err_str);
 				println!();
 				println!("**************");
 				println!("{}", err_str);
 				println!("**************");
-				println!("(You can still view your balances by disconnecting from the grin node, however you will not be able to transact until you upgrade)");
+				println!("(You can still view your balances by disconnecting from the kepler node, however you will not be able to transact until you upgrade)");
 				println!();
 				return 1;
 			}

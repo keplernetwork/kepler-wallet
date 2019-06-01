@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -12,7 +12,7 @@
 // limitations under the License.
 
 //! Wallet seed encryption tests
-extern crate grin_wallet_impls as impls;
+extern crate kepler_wallet_impls as impls;
 
 use impls::{EncryptedWalletSeed, WalletSeed};
 

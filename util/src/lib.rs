@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,9 +20,9 @@
 #![deny(unused_mut)]
 #![warn(missing_docs)]
 
-pub use grin_api;
-pub use grin_chain;
-pub use grin_core;
-pub use grin_keychain;
-pub use grin_store;
-pub use grin_util;
+pub use kepler_api;
+pub use kepler_chain;
+pub use kepler_core;
+pub use kepler_keychain;
+pub use kepler_store;
+pub use kepler_util;

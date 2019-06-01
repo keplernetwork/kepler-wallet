@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ where
 	K: Keychain,
 {
 	/// A reference-counted mutex to an implementation of the
-	/// [`WalletBackend`](../grin_wallet_libwallet/types/trait.WalletBackend.html) trait.
+	/// [`WalletBackend`](../kepler_wallet_libwallet/types/trait.WalletBackend.html) trait.
 	pub wallet: Arc<Mutex<W>>,
 	/// Flag to normalize some output during testing. Can mostly be ignored.
 	pub doctest_mode: bool,
@@ -67,26 +67,26 @@ where
 	/// Create a new API instance with the given wallet instance. All subsequent
 	/// API calls will operate on this instance of the wallet.
 	///
-	/// Each method will call the [`WalletBackend`](../grin_wallet_libwallet/types/trait.WalletBackend.html)'s
-	/// [`open_with_credentials`](../grin_wallet_libwallet/types/trait.WalletBackend.html#tymethod.open_with_credentials)
+	/// Each method will call the [`WalletBackend`](../kepler_wallet_libwallet/types/trait.WalletBackend.html)'s
+	/// [`open_with_credentials`](../kepler_wallet_libwallet/types/trait.WalletBackend.html#tymethod.open_with_credentials)
 	/// (initialising a keychain with the master seed,) perform its operation, then close the keychain
-	/// with a call to [`close`](../grin_wallet_libwallet/types/trait.WalletBackend.html#tymethod.close)
+	/// with a call to [`close`](../kepler_wallet_libwallet/types/trait.WalletBackend.html#tymethod.close)
 	///
 	/// # Arguments
 	/// * `wallet_in` - A reference-counted mutex containing an implementation of the
-	/// [`WalletBackend`](../grin_wallet_libwallet/types/trait.WalletBackend.html) trait.
+	/// [`WalletBackend`](../kepler_wallet_libwallet/types/trait.WalletBackend.html) trait.
 	///
 	/// # Returns
 	/// * An instance of the OwnerApi holding a reference to the provided wallet
 	///
 	/// # Example
 	/// ```
-	/// use grin_wallet_util::grin_keychain as keychain;
-	/// use grin_wallet_util::grin_util as util;
-	/// use grin_wallet_api as api;
-	/// use grin_wallet_config as config;
-	/// use grin_wallet_impls as impls;
-	/// use grin_wallet_libwallet as libwallet;
+	/// use kepler_wallet_util::kepler_keychain as keychain;
+	/// use kepler_wallet_util::kepler_util as util;
+	/// use kepler_wallet_api as api;
+	/// use kepler_wallet_config as config;
+	/// use kepler_wallet_impls as impls;
+	/// use kepler_wallet_libwallet as libwallet;
 	///
 	/// use keychain::ExtKeychain;
 	/// use tempfile::tempdir;
@@ -136,8 +136,8 @@ where
 	///
 	/// # Returns
 	/// * Result Containing:
-	/// * A Vector of [`AcctPathMapping`](../grin_wallet_libwallet/types/struct.AcctPathMapping.html) data
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * A Vector of [`AcctPathMapping`](../kepler_wallet_libwallet/types/struct.AcctPathMapping.html) data
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 	///
 	/// # Remarks
 	///
@@ -148,7 +148,7 @@ where
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let api_owner = Owner::new(wallet.clone());
 	///
@@ -172,8 +172,8 @@ where
 	///
 	/// # Returns
 	/// * Result Containing:
-	/// * A [Keychain Identifier](../grin_keychain/struct.Identifier.html) for the new path
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * A [Keychain Identifier](../kepler_keychain/struct.Identifier.html) for the new path
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 	///
 	/// # Remarks
 	///
@@ -190,7 +190,7 @@ where
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let api_owner = Owner::new(wallet.clone());
 	///
@@ -216,7 +216,7 @@ where
 	/// # Returns
 	/// * Result Containing:
 	/// * `Ok(())` if the path was correctly set
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 	///
 	/// # Remarks
 	///
@@ -230,7 +230,7 @@ where
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let api_owner = Owner::new(wallet.clone());
 	///
@@ -254,7 +254,7 @@ where
 	/// in the wallet will be returned. If `false`, spent outputs will omitted
 	/// from the results.
 	/// * `refresh_from_node` - If true, the wallet will attempt to contact
-	/// a node (via the [`NodeClient`](../grin_wallet_libwallet/types/trait.NodeClient.html)
+	/// a node (via the [`NodeClient`](../kepler_wallet_libwallet/types/trait.NodeClient.html)
 	/// provided during wallet instantiation). If `false`, the results will
 	/// contain output information that may be out-of-date (from the last time
 	/// the wallet's output set was refreshed against the node).
@@ -267,15 +267,15 @@ where
 	/// refreshed from the node (note this may be false even if the `refresh_from_node`
 	/// argument was set to `true`.
 	/// * The second element contains a vector of
-	/// [OutputCommitMapping](../grin_wallet_libwallet/types/struct.OutputCommitMapping.html)
+	/// [OutputCommitMapping](../kepler_wallet_libwallet/types/struct.OutputCommitMapping.html)
 	/// of which each element is a mapping between the wallet's internal
-	/// [OutputData](../grin_wallet_libwallet/types/struct.Output.html)
+	/// [OutputData](../kepler_wallet_libwallet/types/struct.Output.html)
 	/// and the Output commitment as identified in the chain's UTXO set
 	///
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let api_owner = Owner::new(wallet.clone());
 	/// let show_spent = false;
@@ -302,19 +302,19 @@ where
 		res
 	}
 
-	/// Returns a list of [Transaction Log Entries](../grin_wallet_libwallet/types/struct.TxLogEntry.html)
+	/// Returns a list of [Transaction Log Entries](../kepler_wallet_libwallet/types/struct.TxLogEntry.html)
 	/// from the active account in the wallet.
 	///
 	/// # Arguments
 	/// * `refresh_from_node` - If true, the wallet will attempt to contact
-	/// a node (via the [`NodeClient`](../grin_wallet_libwallet/types/trait.NodeClient.html)
+	/// a node (via the [`NodeClient`](../kepler_wallet_libwallet/types/trait.NodeClient.html)
 	/// provided during wallet instantiation). If `false`, the results will
 	/// contain transaction information that may be out-of-date (from the last time
 	/// the wallet's output set was refreshed against the node).
 	/// * `tx_id` - If `Some(i)`, only return the transactions associated with
 	/// the transaction log entry of id `i`.
 	/// * `tx_slate_id` - If `Some(uuid)`, only return transactions associated with
-	/// the given [`Slate`](../grin_wallet_libwallet/slate/struct.Slate.html) uuid.
+	/// the given [`Slate`](../kepler_wallet_libwallet/slate/struct.Slate.html) uuid.
 	///
 	/// # Returns
 	/// * `(bool, Vec<TxLogEntry)` - A tuple:
@@ -322,12 +322,12 @@ where
 	/// refreshed from the node (note this may be false even if the `refresh_from_node`
 	/// argument was set to `true`.
 	/// * The second element contains the set of retrieved
-	/// [TxLogEntries](../grin_wallet_libwallet/types/struct.TxLogEntry.html)
+	/// [TxLogEntries](../kepler_wallet_libwallet/types/struct.TxLogEntry.html)
 	///
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let api_owner = Owner::new(wallet.clone());
 	/// let update_from_node = true;
@@ -370,7 +370,7 @@ where
 	///
 	/// # Arguments
 	/// * `refresh_from_node` - If true, the wallet will attempt to contact
-	/// a node (via the [`NodeClient`](../grin_wallet_libwallet/types/trait.NodeClient.html)
+	/// a node (via the [`NodeClient`](../kepler_wallet_libwallet/types/trait.NodeClient.html)
 	/// provided during wallet instantiation). If `false`, the results will
 	/// contain transaction information that may be out-of-date (from the last time
 	/// the wallet's output set was refreshed against the node).
@@ -378,16 +378,16 @@ where
 	/// should have before it's included in the 'amount_currently_spendable' total
 	///
 	/// # Returns
-	/// * (`bool`, [`WalletInfo`](../grin_wallet_libwallet/types/struct.WalletInfo.html)) - A tuple:
+	/// * (`bool`, [`WalletInfo`](../kepler_wallet_libwallet/types/struct.WalletInfo.html)) - A tuple:
 	/// * The first `bool` element indicates whether the data was successfully
 	/// refreshed from the node (note this may be false even if the `refresh_from_node`
 	/// argument was set to `true`.
-	/// * The second element contains the Summary [`WalletInfo`](../grin_wallet_libwallet/types/struct.WalletInfo.html)
+	/// * The second element contains the Summary [`WalletInfo`](../kepler_wallet_libwallet/types/struct.WalletInfo.html)
 	///
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let mut api_owner = Owner::new(wallet.clone());
 	/// let update_from_node = true;
@@ -414,7 +414,7 @@ where
 	}
 
 	/// Initiates a new transaction as the sender, creating a new
-	/// [`Slate`](../grin_wallet_libwallet/slate/struct.Slate.html) object containing
+	/// [`Slate`](../kepler_wallet_libwallet/slate/struct.Slate.html) object containing
 	/// the sender's inputs, change outputs, and public signature data. This slate can
 	/// then be sent to the recipient to continue the transaction via the
 	/// [Foreign API's `receive_tx`](struct.Foreign.html#method.receive_tx) method.
@@ -430,25 +430,25 @@ where
 	/// as via file transfer,) the lock call should happen immediately (before the file is sent
 	/// to the recipient).
 	///
-	/// If the `send_args` [`InitTxSendArgs`](../grin_wallet_libwallet/types/struct.InitTxSendArgs.html),
-	/// of the [`args`](../grin_wallet_libwallet/types/struct.InitTxArgs.html), field is Some, this
+	/// If the `send_args` [`InitTxSendArgs`](../kepler_wallet_libwallet/types/struct.InitTxSendArgs.html),
+	/// of the [`args`](../kepler_wallet_libwallet/types/struct.InitTxArgs.html), field is Some, this
 	/// function will attempt to perform a synchronous send to the recipient specified in the `dest`
 	/// field according to the `method` field, and will also finalize and post the transaction if
 	/// the `finalize` field is set.
 	///
 	/// # Arguments
-	/// * `args` - [`InitTxArgs`](../grin_wallet_libwallet/types/struct.InitTxArgs.html),
+	/// * `args` - [`InitTxArgs`](../kepler_wallet_libwallet/types/struct.InitTxArgs.html),
 	/// transaction initialization arguments. See struct documentation for further detail.
 	///
 	/// # Returns
 	/// * a result containing:
-	/// * The transaction [Slate](../grin_wallet_libwallet/slate/struct.Slate.html),
+	/// * The transaction [Slate](../kepler_wallet_libwallet/slate/struct.Slate.html),
 	/// which can be forwarded to the recieving party by any means. Once the caller is relatively
 	/// certain that the transaction has been sent to the recipient, the associated wallet
 	/// transaction outputs should be locked via a call to
 	/// [`tx_lock_outputs`](struct.Owner.html#method.tx_lock_outputs). This must be called before calling
 	/// [`finalize_tx`](struct.Owner.html#method.finalize_tx).
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 	///
 	/// # Remarks
 	///
@@ -460,7 +460,7 @@ where
 	/// # Example
 	/// Set up as in [new](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let mut api_owner = Owner::new(wallet.clone());
 	/// // Attempt to create a transaction using the 'default' account
@@ -471,7 +471,7 @@ where
 	/// 	max_outputs: 500,
 	/// 	num_change_outputs: 1,
 	/// 	selection_strategy_is_use_all: true,
-	/// 	message: Some("Have some Grins. Love, Yeastplume".to_owned()),
+	/// 	message: Some("Have some Keplers. Love, Yeastplume".to_owned()),
 	/// 	..Default::default()
 	/// };
 	/// let result = api_owner.init_send_tx(
@@ -535,18 +535,18 @@ where
 	/// via the [Foreign API's `finalize_invoice_tx`](struct.Foreign.html#method.finalize_invoice_tx) method.
 	///
 	/// # Arguments
-	/// * `args` - [`IssueInvoiceTxArgs`](../grin_wallet_libwallet/types/struct.IssueInvoiceTxArgs.html),
+	/// * `args` - [`IssueInvoiceTxArgs`](../kepler_wallet_libwallet/types/struct.IssueInvoiceTxArgs.html),
 	/// invoice transaction initialization arguments. See struct documentation for further detail.
 	///
 	/// # Returns
-	/// * ``Ok([`slate`](../grin_wallet_libwallet/slate/struct.Slate.html))` if successful,
+	/// * ``Ok([`slate`](../kepler_wallet_libwallet/slate/struct.Slate.html))` if successful,
 	/// containing the updated slate.
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 	///
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let mut api_owner = Owner::new(wallet.clone());
 	///
@@ -584,20 +584,20 @@ where
 	/// via the [`get_stored_tx`](struct.Owner.html#method.get_stored_tx) function.
 	///
 	/// # Arguments
-	/// * `slate` - The transaction [`Slate`](../grin_wallet_libwallet/slate/struct.Slate.html). The
+	/// * `slate` - The transaction [`Slate`](../kepler_wallet_libwallet/slate/struct.Slate.html). The
 	/// payer should have filled in round 1 and 2.
-	/// * `args` - [`InitTxArgs`](../grin_wallet_libwallet/types/struct.InitTxArgs.html),
+	/// * `args` - [`InitTxArgs`](../kepler_wallet_libwallet/types/struct.InitTxArgs.html),
 	/// transaction initialization arguments. See struct documentation for further detail.
 	///
 	/// # Returns
-	/// * ``Ok([`slate`](../grin_wallet_libwallet/slate/struct.Slate.html))` if successful,
+	/// * ``Ok([`slate`](../kepler_wallet_libwallet/slate/struct.Slate.html))` if successful,
 	/// containing the updated slate.
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 	///
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let mut api_owner = Owner::new(wallet.clone());
 	///
@@ -631,7 +631,7 @@ where
 	}
 
 	/// Locks the outputs associated with the inputs to the transaction in the given
-	/// [`Slate`](../grin_wallet_libwallet/slate/struct.Slate.html),
+	/// [`Slate`](../kepler_wallet_libwallet/slate/struct.Slate.html),
 	/// making them unavailable for use in further transactions. This function is called
 	/// by the sender, (or more generally, all parties who have put inputs into the transaction,)
 	/// and must be called before the corresponding call to [`finalize_tx`](struct.Owner.html#method.finalize_tx)
@@ -644,7 +644,7 @@ where
 	/// and return them to the `Unspent` state.
 	///
 	/// # Arguments
-	/// * `slate` - The transaction [`Slate`](../grin_wallet_libwallet/slate/struct.Slate.html). All
+	/// * `slate` - The transaction [`Slate`](../kepler_wallet_libwallet/slate/struct.Slate.html). All
 	/// * `participant_id` - The participant id, generally 0 for the party putting in funds, 1 for the
 	/// party receiving.
 	/// elements in the `input` vector of the `tx` field that are found in the wallet's currently
@@ -652,12 +652,12 @@ where
 	///
 	/// # Returns
 	/// * Ok(()) if successful
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 	///
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let mut api_owner = Owner::new(wallet.clone());
 	/// let args = InitTxArgs {
@@ -703,19 +703,19 @@ where
 	/// via the [`get_stored_tx`](struct.Owner.html#method.get_stored_tx) function.
 	///
 	/// # Arguments
-	/// * `slate` - The transaction [`Slate`](../grin_wallet_libwallet/slate/struct.Slate.html). All
+	/// * `slate` - The transaction [`Slate`](../kepler_wallet_libwallet/slate/struct.Slate.html). All
 	/// participants must have filled in both rounds, and the sender should have locked their
 	/// outputs (via the [`tx_lock_outputs`](struct.Owner.html#method.tx_lock_outputs) function).
 	///
 	/// # Returns
-	/// * ``Ok([`slate`](../grin_wallet_libwallet/slate/struct.Slate.html))` if successful,
+	/// * ``Ok([`slate`](../kepler_wallet_libwallet/slate/struct.Slate.html))` if successful,
 	/// containing the new finalized slate.
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 	///
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let mut api_owner = Owner::new(wallet.clone());
 	/// let args = InitTxArgs {
@@ -757,8 +757,8 @@ where
 	/// for mining.
 	///
 	/// # Arguments
-	/// * `tx` - A completed [`Transaction`](../grin_core/core/transaction/struct.Transaction.html),
-	/// typically the `tx` field in the transaction [`Slate`](../grin_wallet_libwallet/slate/struct.Slate.html).
+	/// * `tx` - A completed [`Transaction`](../kepler_core/core/transaction/struct.Transaction.html),
+	/// typically the `tx` field in the transaction [`Slate`](../kepler_wallet_libwallet/slate/struct.Slate.html).
 	///
 	/// * `fluff` - Instruct the node whether to use the Dandelion protocol when posting the
 	/// transaction. If `true`, the node should skip the Dandelion phase and broadcast the
@@ -767,12 +767,12 @@ where
 	///
 	/// # Returns
 	/// * `Ok(())` if successful
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 	///
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let mut api_owner = Owner::new(wallet.clone());
 	/// let args = InitTxArgs {
@@ -821,19 +821,19 @@ where
 	///
 	/// # Arguments
 	///
-	/// * `tx_id` - If present, cancel by the [`TxLogEntry`](../grin_wallet_libwallet/types/struct.TxLogEntry.html) id
+	/// * `tx_id` - If present, cancel by the [`TxLogEntry`](../kepler_wallet_libwallet/types/struct.TxLogEntry.html) id
 	/// for the transaction.
 	///
 	/// * `tx_slate_id` - If present, cancel by the Slate id.
 	///
 	/// # Returns
 	/// * `Ok(())` if successful
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 	///
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let mut api_owner = Owner::new(wallet.clone());
 	/// let args = InitTxArgs {
@@ -875,17 +875,17 @@ where
 	///
 	/// # Arguments
 	///
-	/// * `tx_log_entry` - A [`TxLogEntry`](../grin_wallet_libwallet/types/struct.TxLogEntry.html)
+	/// * `tx_log_entry` - A [`TxLogEntry`](../kepler_wallet_libwallet/types/struct.TxLogEntry.html)
 	///
 	/// # Returns
-	/// * Ok with the stored  [`Transaction`](../grin_core/core/transaction/struct.Transaction.html)
+	/// * Ok with the stored  [`Transaction`](../kepler_core/core/transaction/struct.Transaction.html)
 	/// if successful
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 	///
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let api_owner = Owner::new(wallet.clone());
 	/// let update_from_node = true;
@@ -917,16 +917,16 @@ where
 	///
 	/// # Arguments
 	///
-	/// * `slate` - The transaction [`Slate`](../grin_wallet_libwallet/slate/struct.Slate.html).
+	/// * `slate` - The transaction [`Slate`](../kepler_wallet_libwallet/slate/struct.Slate.html).
 	///
 	/// # Returns
 	/// * `Ok(())` if successful and the signatures validate
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 	///
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let mut api_owner = Owner::new(wallet.clone());
 	/// let args = InitTxArgs {
@@ -967,7 +967,7 @@ where
 	/// that no other processes should be trying to use the wallet at the same time this function is
 	/// running.
 	///
-	/// A single [TxLogEntry](../grin_wallet_libwallet/types/struct.TxLogEntry.html) is created for
+	/// A single [TxLogEntry](../kepler_wallet_libwallet/types/struct.TxLogEntry.html) is created for
 	/// all non-coinbase outputs discovered and restored during this process. A separate entry
 	/// is created for each coinbase output.
 	///
@@ -977,12 +977,12 @@ where
 	///
 	/// # Returns
 	/// * `Ok(())` if successful
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let mut api_owner = Owner::new(wallet.clone());
 	/// let result = api_owner.restore();
@@ -1012,7 +1012,7 @@ where
 	/// running.
 	///
 	/// When an output is found that doesn't exist in the wallet, a corresponding
-	/// [TxLogEntry](../grin_wallet_libwallet/types/struct.TxLogEntry.html) is created.
+	/// [TxLogEntry](../kepler_wallet_libwallet/types/struct.TxLogEntry.html) is created.
 	///
 	/// # Arguments
 	///
@@ -1028,12 +1028,12 @@ where
 	///
 	/// # Returns
 	/// * `Ok(())` if successful
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let mut api_owner = Owner::new(wallet.clone());
 	/// let result = api_owner.check_repair(
@@ -1069,15 +1069,15 @@ where
 	/// * None
 	///
 	/// # Returns
-	/// * Ok with a  [`NodeHeightResult`](../grin_wallet_libwallet/types/struct.NodeHeightResult.html)
+	/// * Ok with a  [`NodeHeightResult`](../kepler_wallet_libwallet/types/struct.NodeHeightResult.html)
 	/// if successful. If the height result was obtained from the configured node,
 	/// `updated_from_node` will be set to `true`
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 	///
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
 	/// let api_owner = Owner::new(wallet.clone());
 	/// let result = api_owner.node_height();
@@ -1104,12 +1104,12 @@ where
 #[macro_export]
 macro_rules! doctest_helper_setup_doc_env {
 	($wallet:ident, $wallet_config:ident) => {
-		use grin_wallet_api as api;
-		use grin_wallet_config as config;
-		use grin_wallet_impls as impls;
-		use grin_wallet_libwallet as libwallet;
-		use grin_wallet_util::grin_keychain as keychain;
-		use grin_wallet_util::grin_util as util;
+		use kepler_wallet_api as api;
+		use kepler_wallet_config as config;
+		use kepler_wallet_impls as impls;
+		use kepler_wallet_libwallet as libwallet;
+		use kepler_wallet_util::kepler_keychain as keychain;
+		use kepler_wallet_util::kepler_util as util;
 
 		use keychain::ExtKeychain;
 		use tempfile::tempdir;

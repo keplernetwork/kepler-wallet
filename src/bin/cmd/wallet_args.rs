@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,13 +18,13 @@ use crate::util::{Mutex, ZeroingString};
 /// Argument parsing and error handling for wallet commands
 use clap::ArgMatches;
 use failure::Fail;
-use grin_wallet_config::WalletConfig;
-use grin_wallet_controller::command;
-use grin_wallet_controller::{Error, ErrorKind};
-use grin_wallet_impls::{instantiate_wallet, WalletSeed};
-use grin_wallet_libwallet::{IssueInvoiceTxArgs, NodeClient, WalletInst};
-use grin_wallet_util::grin_core as core;
-use grin_wallet_util::grin_keychain as keychain;
+use kepler_wallet_config::WalletConfig;
+use kepler_wallet_controller::command;
+use kepler_wallet_controller::{Error, ErrorKind};
+use kepler_wallet_impls::{instantiate_wallet, WalletSeed};
+use kepler_wallet_libwallet::{IssueInvoiceTxArgs, NodeClient, WalletInst};
+use kepler_wallet_util::kepler_core as core;
+use kepler_wallet_util::kepler_keychain as keychain;
 use linefeed::terminal::Signal;
 use linefeed::{Interface, ReadResult};
 use rpassword;
@@ -33,11 +33,11 @@ use std::sync::Arc;
 
 // shut up test compilation warnings
 #[cfg(not(test))]
-use grin_wallet_impls::FileWalletCommAdapter;
+use kepler_wallet_impls::FileWalletCommAdapter;
 #[cfg(not(test))]
-use grin_wallet_libwallet::Slate;
+use kepler_wallet_libwallet::Slate;
 #[cfg(not(test))]
-use grin_wallet_util::grin_core::core::amount_to_hr_string;
+use kepler_wallet_util::kepler_core::core::amount_to_hr_string;
 
 // define what to do on argument error
 macro_rules! arg_parse {
@@ -219,7 +219,7 @@ pub fn inst_wallet(
 		Err(e) => {
 			let msg = {
 				match e.kind() {
-					grin_wallet_impls::ErrorKind::Encryption => {
+					kepler_wallet_impls::ErrorKind::Encryption => {
 						format!("Error decrypting wallet seed (check provided password)")
 					}
 					_ => format!("Error instantiating wallet: {}", e),
@@ -848,7 +848,7 @@ pub fn wallet_command(
 			command::check_repair(inst_wallet(), a)
 		}
 		_ => {
-			let msg = format!("Unknown wallet command, use 'grin help wallet' for details");
+			let msg = format!("Unknown wallet command, use 'kepler help wallet' for details");
 			return Err(ErrorKind::ArgumentError(msg).into());
 		}
 	};

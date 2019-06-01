@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Contains V2 of the slate (grin-wallet 1.1.0)
+//! Contains V2 of the slate (kepler-wallet 1.1.0)
 //! Changes from V1:
 //! * ParticipantData struct fields serialized as hex strings instead of arrays:
 //!    * public_blind_excess
@@ -35,14 +35,14 @@
 //!    orig_version: u16,
 //!    block_header_version: u16,
 
-use crate::grin_core::core::transaction::{KernelFeatures, OutputFeatures};
-use crate::grin_core::libtx::secp_ser;
-use crate::grin_core::map_vec;
-use crate::grin_keychain::BlindingFactor;
-use crate::grin_util::secp;
-use crate::grin_util::secp::key::PublicKey;
-use crate::grin_util::secp::pedersen::{Commitment, RangeProof};
-use crate::grin_util::secp::Signature;
+use crate::kepler_core::core::transaction::{KernelFeatures, OutputFeatures};
+use crate::kepler_core::libtx::secp_ser;
+use crate::kepler_core::map_vec;
+use crate::kepler_keychain::BlindingFactor;
+use crate::kepler_util::secp;
+use crate::kepler_util::secp::key::PublicKey;
+use crate::kepler_util::secp::pedersen::{Commitment, RangeProof};
+use crate::kepler_util::secp::Signature;
 use uuid::Uuid;
 
 use crate::slate_versions::v1::{
@@ -84,7 +84,7 @@ pub struct VersionCompatInfoV2 {
 	pub version: u16,
 	/// Original version this slate was converted from
 	pub orig_version: u16,
-	/// Version of grin block header this slate is compatible with
+	/// Version of kepler block header this slate is compatible with
 	pub block_header_version: u16,
 }
 

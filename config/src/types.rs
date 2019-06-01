@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ pub struct WalletConfig {
 	pub owner_api_listen_port: Option<u16>,
 	/// Location of the secret for basic auth on the Owner API
 	pub api_secret_path: Option<String>,
-	/// Location of the node api secret for basic auth on the Grin API
+	/// Location of the node api secret for basic auth on the Kepler API
 	pub node_api_secret_path: Option<String>,
 	/// The api address of a running server node against which transaction inputs
 	/// will be checked during send
@@ -63,11 +63,11 @@ impl Default for WalletConfig {
 		WalletConfig {
 			chain_type: Some(ChainTypes::Mainnet),
 			api_listen_interface: "127.0.0.1".to_string(),
-			api_listen_port: 3415,
+			api_listen_port: 7415,
 			owner_api_listen_port: Some(WalletConfig::default_owner_api_listen_port()),
 			api_secret_path: Some(".api_secret".to_string()),
 			node_api_secret_path: Some(".api_secret".to_string()),
-			check_node_api_http_addr: "http://127.0.0.1:3413".to_string(),
+			check_node_api_http_addr: "http://127.0.0.1:7413".to_string(),
 			owner_api_include_foreign: Some(false),
 			data_file_dir: ".".to_string(),
 			no_commit_cache: Some(false),
@@ -87,7 +87,7 @@ impl WalletConfig {
 
 	/// Default listener port
 	pub fn default_owner_api_listen_port() -> u16 {
-		3420
+		7420
 	}
 
 	/// Use value from config file, defaulting to sensible value if missing.

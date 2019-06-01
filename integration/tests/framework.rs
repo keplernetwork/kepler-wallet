@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,22 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-extern crate grin_apiwallet as apiwallet;
-extern crate grin_libwallet as libwallet;
-extern crate grin_refwallet as wallet;
-extern crate grin_wallet_config as wallet_config;
+extern crate kepler_apiwallet as apiwallet;
+extern crate kepler_libwallet as libwallet;
+extern crate kepler_refwallet as wallet;
+extern crate kepler_wallet_config as wallet_config;
 
 use self::keychain::Keychain;
 use self::util::Mutex;
 use self::wallet::{HTTPNodeClient, HTTPWalletCommAdapter, LMDBBackend};
 use self::wallet_config::WalletConfig;
 use blake2_rfc as blake2;
-use grin_api as api;
-use grin_core as core;
-use grin_keychain as keychain;
-use grin_p2p as p2p;
-use grin_servers as servers;
-use grin_util as util;
+use kepler_api as api;
+use kepler_core as core;
+use kepler_keychain as keychain;
+use kepler_p2p as p2p;
+use kepler_servers as servers;
+use kepler_util as util;
 use p2p::PeerAddr;
 use std::default::Default;
 use std::ops::Deref;
@@ -111,10 +111,10 @@ impl Default for LocalServerContainerConfig {
 		LocalServerContainerConfig {
 			name: String::from("test_host"),
 			base_addr: String::from("127.0.0.1"),
-			api_server_port: 13413,
-			p2p_server_port: 13414,
-			wallet_port: 13415,
-			owner_port: 13420,
+			api_server_port: 17413,
+			p2p_server_port: 17414,
+			wallet_port: 17415,
+			owner_port: 17420,
 			owner_api_include_foreign: false,
 			seed_addr: String::from(""),
 			is_seeding: false,
@@ -205,7 +205,7 @@ impl LocalServerContainer {
 		let s = servers::Server::new(servers::ServerConfig {
 			api_http_addr: api_addr,
 			api_secret_path: None,
-			db_root: format!("{}/.grin", self.working_dir),
+			db_root: format!("{}/.kepler", self.working_dir),
 			p2p_config: p2p::P2PConfig {
 				port: self.config.p2p_server_port,
 				seeds: Some(seeds),
@@ -266,7 +266,7 @@ impl LocalServerContainer {
 		let _seed = blake2::blake2b::blake2b(32, &[], seed.as_bytes());
 
 		println!(
-			"Starting the Grin wallet receiving daemon on {} ",
+			"Starting the Kepler wallet receiving daemon on {} ",
 			self.config.wallet_port
 		);
 
@@ -405,7 +405,7 @@ impl LocalServerContainer {
 			slate = api.finalize_tx(&slate)?;
 			api.tx_lock_outputs(&slate, lock_fn)?;
 			println!(
-				"Tx sent: {} grin to {} (strategy '{}')",
+				"Tx sent: {} kepler to {} (strategy '{}')",
 				core::core::amount_to_hr_string(amount, false),
 				dest,
 				selection_strategy,
@@ -652,7 +652,7 @@ pub fn config(n: u16, test_name_dir: &str, seed_n: u16) -> servers::ServerConfig
 	servers::ServerConfig {
 		api_http_addr: format!("127.0.0.1:{}", 20000 + n),
 		api_secret_path: None,
-		db_root: format!("target/tmp/{}/grin-sync-{}", test_name_dir, n),
+		db_root: format!("target/tmp/{}/kepler-sync-{}", test_name_dir, n),
 		p2p_config: p2p::P2PConfig {
 			port: 10000 + n,
 			seeding_type: p2p::Seeding::List,
@@ -673,10 +673,10 @@ pub fn config(n: u16, test_name_dir: &str, seed_n: u16) -> servers::ServerConfig
 pub fn stratum_config() -> servers::common::types::StratumServerConfig {
 	servers::common::types::StratumServerConfig {
 		enable_stratum_server: Some(true),
-		stratum_server_addr: Some(String::from("127.0.0.1:13416")),
+		stratum_server_addr: Some(String::from("127.0.0.1:17416")),
 		attempt_time_per_block: 60,
 		minimum_share_difficulty: 1,
-		wallet_listener_url: String::from("http://127.0.0.1:13415"),
+		wallet_listener_url: String::from("http://127.0.0.1:17415"),
 		burn_reward: false,
 	}
 }

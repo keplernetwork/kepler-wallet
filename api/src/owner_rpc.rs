@@ -1,4 +1,4 @@
-// Copyright 2019 The Grin Developers
+// Copyright 2019 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,8 +25,8 @@ use crate::Owner;
 use easy_jsonrpc;
 
 /// Public definition used to generate Owner jsonrpc api.
-/// * When running `grin-wallet owner_api` with defaults, the V2 api is available at
-/// `localhost:3420/v2/owner`
+/// * When running `kepler-wallet owner_api` with defaults, the V2 api is available at
+/// `localhost:7420/v2/owner`
 /// * The endpoint only supports POST operations, with the json-rpc request as the body
 #[easy_jsonrpc::rpc]
 pub trait OwnerRpc {
@@ -36,7 +36,7 @@ pub trait OwnerRpc {
 	# Json rpc example
 
 	```
-	# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+	# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -71,7 +71,7 @@ pub trait OwnerRpc {
 	# Json rpc example
 
 	```
-	# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+	# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -101,7 +101,7 @@ pub trait OwnerRpc {
 	# Json rpc example
 
 	```
-	# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+	# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -131,7 +131,7 @@ pub trait OwnerRpc {
 	# Json rpc example
 
 	```
-	# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+	# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -202,7 +202,7 @@ pub trait OwnerRpc {
 	# Json rpc example
 
 	```
-		# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+		# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 		# r#"
 		{
 			"jsonrpc": "2.0",
@@ -272,7 +272,7 @@ pub trait OwnerRpc {
 	Networked version of [Owner::retrieve_summary_info](struct.Owner.html#method.retrieve_summary_info).
 
 	```
-	# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+	# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -317,7 +317,7 @@ pub trait OwnerRpc {
 		Networked version of [Owner::init_send_tx](struct.Owner.html#method.init_send_tx).
 
 	```
-		# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+		# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 		# r#"
 		{
 			"jsonrpc": "2.0",
@@ -407,7 +407,7 @@ pub trait OwnerRpc {
 		Networked version of [Owner::issue_invoice_tx](struct.Owner.html#method.issue_invoice_tx).
 
 	```
-		# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+		# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 		# r#"
 		{
 			"jsonrpc": "2.0",
@@ -415,7 +415,7 @@ pub trait OwnerRpc {
 			"params": {
 				"args": {
 					"amount": "6000000000",
-					"message": "Please give me your grins",
+					"message": "Please give me your keplers",
 					"dest_acct_name": null,
 					"target_slate_version": null
 				}
@@ -439,7 +439,7 @@ pub trait OwnerRpc {
 					"participant_data": [
 						{
 							"id": "1",
-							"message": "Please give me your grins",
+							"message": "Please give me your keplers",
 							"message_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841bd9bccdcf5d3a402bccc77d36346d3a899259a884f643e90266984289b39a59d2",
 							"part_sig": null,
 							"public_blind_excess": "028e95921cc0d5be5922362265d352c9bdabe51a9e1502a3f0d4a10387f1893f40",
@@ -487,7 +487,7 @@ pub trait OwnerRpc {
 		 Networked version of [Owner::process_invoice_tx](struct.Owner.html#method.process_invoice_tx).
 
 	```
-		# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+		# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 		# r#"
 		{
 			"jsonrpc": "2.0",
@@ -503,7 +503,7 @@ pub trait OwnerRpc {
 					"participant_data": [
 						{
 							"id": "1",
-							"message": "Please give me your grins",
+							"message": "Please give me your keplers",
 							"message_sig": "1b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078fd2599ab38942986602e943f684a85992893a6d34367dc7cc2b403a5dcfcdbcd9",
 							"part_sig": null,
 							"public_blind_excess": "028e95921cc0d5be5922362265d352c9bdabe51a9e1502a3f0d4a10387f1893f40",
@@ -545,7 +545,7 @@ pub trait OwnerRpc {
 					"max_outputs": 500,
 					"num_change_outputs": 1,
 					"selection_strategy_is_use_all": true,
-					"message": "Ok, here are your grins",
+					"message": "Ok, here are your keplers",
 					"target_slate_version": null,
 					"send_args": null
 				}
@@ -569,7 +569,7 @@ pub trait OwnerRpc {
 				"participant_data": [
 					{
 						"id": "1",
-						"message": "Please give me your grins",
+						"message": "Please give me your keplers",
 						"message_sig": "1b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078fd2599ab38942986602e943f684a85992893a6d34367dc7cc2b403a5dcfcdbcd9",
 						"part_sig": null,
 						"public_blind_excess": "028e95921cc0d5be5922362265d352c9bdabe51a9e1502a3f0d4a10387f1893f40",
@@ -577,7 +577,7 @@ pub trait OwnerRpc {
 					},
 					{
 						"id": "0",
-						"message": "Ok, here are your grins",
+						"message": "Ok, here are your keplers",
 						"message_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841be91ae0f6b50fabc39eefa28118cccdd8fbf5b5afe96972630450f47b72433646",
 						"part_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841b619d40fb6a6fb60449ef9727aeb782e7a5b50fdbfd2d735b49ccc55b477cd319",
 						"public_blind_excess": "0309e22f2adaa9b81f51414b775b86acd096e17794eb8159bfcfef27caa4bf5c90",
@@ -635,7 +635,7 @@ pub trait OwnerRpc {
 	Networked version of [Owner::tx_lock_outputs](struct.Owner.html#method.tx_lock_outputs).
 
 	```
-	# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+	# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -715,7 +715,7 @@ pub trait OwnerRpc {
 	Networked version of [Owner::finalize_tx](struct.Owner.html#method.finalize_tx).
 
 	```
-	# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+	# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -877,7 +877,7 @@ pub trait OwnerRpc {
 	Networked version of [Owner::post_tx](struct.Owner.html#method.post_tx).
 
 	```
-	# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+	# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -945,7 +945,7 @@ pub trait OwnerRpc {
 
 
 	```
-	# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+	# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -973,7 +973,7 @@ pub trait OwnerRpc {
 	Networked version of [Owner::get_stored_tx](struct.Owner.html#method.get_stored_tx).
 
 	```
-	# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+	# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -1007,7 +1007,7 @@ pub trait OwnerRpc {
 				"num_inputs": 2,
 				"num_outputs": 1,
 				"parent_key_id": "0200000000000000000000000000000000",
-				"stored_tx": "0436430c-2b02-624c-2032-570501212b00.grintx",
+				"stored_tx": "0436430c-2b02-624c-2032-570501212b00.keplertx",
 				"tx_slate_id": "0436430c-2b02-624c-2032-570501212b00",
 				"tx_type": "TxSent"
 			}
@@ -1068,7 +1068,7 @@ pub trait OwnerRpc {
 	Networked version of [Owner::verify_slate_messages](struct.Owner.html#method.verify_slate_messages).
 
 	```
-	# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+	# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -1147,7 +1147,7 @@ pub trait OwnerRpc {
 
 
 	```
-	# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+	# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -1176,7 +1176,7 @@ pub trait OwnerRpc {
 
 
 	```
-	# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+	# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -1205,7 +1205,7 @@ pub trait OwnerRpc {
 
 
 	```
-	# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+	# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -1338,13 +1338,13 @@ pub fn run_doctest_owner(
 ) -> Result<Option<serde_json::Value>, String> {
 	use crate::{Owner, OwnerRpc};
 	use easy_jsonrpc::Handler;
-	use grin_wallet_impls::test_framework::{self, LocalWalletClient, WalletProxy};
-	use grin_wallet_libwallet::api_impl;
-	use grin_wallet_util::grin_keychain::ExtKeychain;
+	use kepler_wallet_impls::test_framework::{self, LocalWalletClient, WalletProxy};
+	use kepler_wallet_libwallet::api_impl;
+	use kepler_wallet_util::kepler_keychain::ExtKeychain;
 
 	use crate::core::global;
 	use crate::core::global::ChainTypes;
-	use grin_wallet_util::grin_util as util;
+	use kepler_wallet_util::kepler_util as util;
 
 	use std::fs;
 	use std::thread;
@@ -1451,7 +1451,7 @@ macro_rules! doctest_helper_json_rpc_owner_assert_response {
 		// create temporary wallet, run jsonrpc request on owner api of wallet, delete wallet, return
 		// json response.
 		// In order to prevent leaking tempdirs, This function should not panic.
-		use grin_wallet_api::run_doctest_owner;
+		use kepler_wallet_api::run_doctest_owner;
 		use serde_json;
 		use serde_json::Value;
 		use tempfile::tempdir;

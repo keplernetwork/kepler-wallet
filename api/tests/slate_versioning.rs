@@ -1,4 +1,4 @@
-// Copyright 2019 The Grin Developers
+// Copyright 2019 The Kepler Developers
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -12,14 +12,14 @@
 // limitations under the License.
 
 //! core::libtx specific tests
-use grin_wallet_api::foreign_rpc_client;
-use grin_wallet_api::run_doctest_foreign;
-use grin_wallet_libwallet::{Slate, SlateVersion, VersionedSlate};
+use kepler_wallet_api::foreign_rpc_client;
+use kepler_wallet_api::run_doctest_foreign;
+use kepler_wallet_libwallet::{Slate, SlateVersion, VersionedSlate};
 use serde_json;
 use serde_json::Value;
 use tempfile::tempdir;
-//use grin_wallet_libwallet::slate_versions::v1::SlateV1;
-//use grin_wallet_libwallet::slate_versions::v2::SlateV2;
+//use kepler_wallet_libwallet::slate_versions::v1::SlateV1;
+//use kepler_wallet_libwallet::slate_versions::v2::SlateV2;
 
 // test all slate conversions
 #[test]

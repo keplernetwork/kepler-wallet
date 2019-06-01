@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@
 
 use uuid::Uuid;
 
-use crate::grin_keychain::{Identifier, Keychain};
-use crate::grin_util::Mutex;
 use crate::internal::{selection, updater};
+use crate::kepler_keychain::{Identifier, Keychain};
+use crate::kepler_util::Mutex;
 use crate::slate::Slate;
 use crate::types::{Context, NodeClient, TxLogEntryType, WalletBackend};
 use crate::{Error, ErrorKind};
@@ -330,8 +330,8 @@ where
 
 #[cfg(test)]
 mod test {
-	use crate::grin_core::libtx::build;
-	use crate::grin_keychain::{ExtKeychain, ExtKeychainPath, Keychain};
+	use crate::kepler_core::libtx::build;
+	use crate::kepler_keychain::{ExtKeychain, ExtKeychainPath, Keychain};
 
 	#[test]
 	// demonstrate that input.commitment == referenced output.commitment

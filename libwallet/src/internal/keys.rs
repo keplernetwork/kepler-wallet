@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 
 //! Wallet key management functions
 use crate::error::{Error, ErrorKind};
-use crate::grin_keychain::{ChildNumber, ExtKeychain, Identifier, Keychain};
+use crate::kepler_keychain::{ChildNumber, ExtKeychain, Identifier, Keychain};
 use crate::types::{AcctPathMapping, NodeClient, WalletBackend};
 
 /// Get next available key in the wallet for a given parent

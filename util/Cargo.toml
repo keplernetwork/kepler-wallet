@@ -1,11 +1,11 @@
 [package]
-name = "grin_wallet_util"
+name = "kepler_wallet_util"
 version = "1.1.0-beta.4"
-authors = ["Grin Developers <mimblewimble@lists.launchpad.net>"]
-description = "Util, for generic utilities and to re-export grin crates"
+authors = ["Kepler Developers <keplernetwork@lists.launchpad.net>"]
+description = "Util, for generic utilities and to re-export kepler crates"
 license = "Apache-2.0"
-repository = "https://github.com/mimblewimble/grin-wallet"
-keywords = [ "crypto", "grin", "mimblewimble" ]
+repository = "https://github.com/keplernetwork/kepler-wallet"
+keywords = [ "crypto", "kepler", "keplernetwork" ]
 workspace = ".."
 edition = "2018"
 
@@ -17,36 +17,44 @@ toml = "0.4"
 dirs = "1.0.3"
 
 # For Release
-#grin_core = "1.1.0-beta.1"
-#grin_keychain = "1.1.0-beta.1"
-#grin_chain = "1.1.0-beta.1"
-#grin_util = "1.1.0-beta.1"
-#grin_api = "1.1.0-beta.1"
-#grin_store = "1.1.0-beta.1"
+#kepler_core = "1.1.0-beta.1"
+#kepler_keychain = "1.1.0-beta.1"
+#kepler_chain = "1.1.0-beta.1"
+#kepler_util = "1.1.0-beta.1"
+#kepler_api = "1.1.0-beta.1"
+#kepler_store = "1.1.0-beta.1"
 
 # For beta release
-# grin_core = { git = "https://github.com/mimblewimble/grin", tag = "v1.1.0-beta.2" }
-# grin_keychain = { git = "https://github.com/mimblewimble/grin", tag = "v1.1.0-beta.2" }
-# grin_chain = { git = "https://github.com/mimblewimble/grin", tag = "v1.1.0-beta.2" }
-# grin_util = { git = "https://github.com/mimblewimble/grin", tag = "v1.1.0-beta.2" }
-# grin_api = { git = "https://github.com/mimblewimble/grin", tag = "v1.1.0-beta.2" }
-# grin_store = { git = "https://github.com/mimblewimble/grin", tag = "v1.1.0-beta.2" }
+# kepler_core = { git = "https://github.com/keplernetwork/kepler", tag = "v1.1.0-beta.2" }
+# kepler_keychain = { git = "https://github.com/keplernetwork/kepler", tag = "v1.1.0-beta.2" }
+# kepler_chain = { git = "https://github.com/keplernetwork/kepler", tag = "v1.1.0-beta.2" }
+# kepler_util = { git = "https://github.com/keplernetwork/kepler", tag = "v1.1.0-beta.2" }
+# kepler_api = { git = "https://github.com/keplernetwork/kepler", tag = "v1.1.0-beta.2" }
+# kepler_store = { git = "https://github.com/keplernetwork/kepler", tag = "v1.1.0-beta.2" }
+
+# For beta release
+kepler_core = { git = "https://github.com/sulaweisi/kepler", branch = "kepler-v1.1.0.beta.2" }
+kepler_keychain = { git = "https://github.com/sulaweisi/kepler", branch = "kepler-v1.1.0.beta.2" }
+kepler_chain = { git = "https://github.com/sulaweisi/kepler", branch = "kepler-v1.1.0.beta.2" }
+kepler_util = { git = "https://github.com/sulaweisi/kepler", branch = "kepler-v1.1.0.beta.2" }
+kepler_api = { git = "https://github.com/sulaweisi/kepler", branch = "kepler-v1.1.0.beta.2" }
+kepler_store = { git = "https://github.com/sulaweisi/kepler", branch = "kepler-v1.1.0.beta.2" }
 
 # For bleeding edge
-grin_core = { git = "https://github.com/mimblewimble/grin", branch = "master" }
-grin_keychain = { git = "https://github.com/mimblewimble/grin", branch = "master" }
-grin_chain = { git = "https://github.com/mimblewimble/grin", branch = "master" }
-grin_util = { git = "https://github.com/mimblewimble/grin", branch = "master" }
-grin_api = { git = "https://github.com/mimblewimble/grin", branch = "master" }
-grin_store = { git = "https://github.com/mimblewimble/grin", branch = "master" }
+# kepler_core = { git = "https://github.com/keplernetwork/kepler", branch = "master" }
+# kepler_keychain = { git = "https://github.com/keplernetwork/kepler", branch = "master" }
+# kepler_chain = { git = "https://github.com/keplernetwork/kepler", branch = "master" }
+# kepler_util = { git = "https://github.com/keplernetwork/kepler", branch = "master" }
+# kepler_api = { git = "https://github.com/keplernetwork/kepler", branch = "master" }
+# kepler_store = { git = "https://github.com/keplernetwork/kepler", branch = "master" }
 
 # For local testing
-#grin_core = { path = "../../grin/core", version= "1.1.0-beta.2"}
-#grin_keychain = { path = "../../grin/keychain", version= "1.1.0-beta.2"}
-#grin_chain = { path = "../../grin/chain", version= "1.1.0-beta.2"}
-#grin_util = { path = "../../grin/util", version= "1.1.0-beta.2"}
-#grin_api = { path = "../../grin/api", version= "1.1.0-beta.2"}
-#grin_store = { path = "../../grin/store", version= "1.1.0-beta.2"}
+#kepler_core = { path = "../../kepler/core", version= "1.1.0-beta.2"}
+#kepler_keychain = { path = "../../kepler/keychain", version= "1.1.0-beta.2"}
+#kepler_chain = { path = "../../kepler/chain", version= "1.1.0-beta.2"}
+#kepler_util = { path = "../../kepler/util", version= "1.1.0-beta.2"}
+#kepler_api = { path = "../../kepler/api", version= "1.1.0-beta.2"}
+#kepler_store = { path = "../../kepler/store", version= "1.1.0-beta.2"}
 
 [dev-dependencies]
 pretty_assertions = "0.5.1"

@@ -1,4 +1,4 @@
-// Copyright 2018 The Grin Developers
+// Copyright 2018 The Kepler Developers
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,13 +16,13 @@
 //! implementation
 
 use crate::error::{Error, ErrorKind};
-use crate::grin_core::core::hash::Hash;
-use crate::grin_core::core::Transaction;
-use crate::grin_core::libtx::{aggsig, secp_ser};
-use crate::grin_core::ser;
-use crate::grin_keychain::{Identifier, Keychain};
-use crate::grin_util::secp::key::{PublicKey, SecretKey};
-use crate::grin_util::secp::{self, pedersen, Secp256k1};
+use crate::kepler_core::core::hash::Hash;
+use crate::kepler_core::core::Transaction;
+use crate::kepler_core::libtx::{aggsig, secp_ser};
+use crate::kepler_core::ser;
+use crate::kepler_keychain::{Identifier, Keychain};
+use crate::kepler_util::secp::key::{PublicKey, SecretKey};
+use crate::kepler_util::secp::{self, pedersen, Secp256k1};
 use crate::slate::ParticipantMessages;
 use chrono::prelude::*;
 use failure::ResultExt;
@@ -218,13 +218,13 @@ pub trait NodeClient: Sync + Send + Clone {
 	/// Change the API secret
 	fn set_node_api_secret(&mut self, node_api_secret: Option<String>);
 
-	/// Posts a transaction to a grin node
+	/// Posts a transaction to a kepler node
 	fn post_tx(&self, tx: &TxWrapper, fluff: bool) -> Result<(), Error>;
 
-	/// retrieves the current tip from the specified grin node
+	/// retrieves the current tip from the specified kepler node
 	fn get_chain_height(&self) -> Result<u64, Error>;
 
-	/// retrieve a list of outputs from the specified grin node
+	/// retrieve a list of outputs from the specified kepler node
 	/// need "by_height" and "by_id" variants
 	fn get_outputs_from_node(
 		&self,
