@@ -150,9 +150,9 @@ pub trait OwnerRpc {
 				true,
 				[
 					{
-						"commit": "08e1da9e6dc4d6e808a718b2f110a991dd775d65ce5ae408a4e1f002a4961aa9e7",
+						"commit": "09016c5a3376e054e20402797e4367605e30d032eda4a8752fbe05ffd8659a7fa8",
 						"output": {
-							"commit": "08e1da9e6dc4d6e808a718b2f110a991dd775d65ce5ae408a4e1f002a4961aa9e7",
+							"commit": "09016c5a3376e054e20402797e4367605e30d032eda4a8752fbe05ffd8659a7fa8",
 							"height": "1",
 							"is_coinbase": true,
 							"key_id": "0300000000000000000000000000000000",
@@ -162,13 +162,13 @@ pub trait OwnerRpc {
 							"root_key_id": "0200000000000000000000000000000000",
 							"status": "Unspent",
 							"tx_log_entry": 0,
-							"value": "60000000000"
+							"value": "1000000000000"
 						}
 					},
 					{
-						"commit": "087df32304c5d4ae8b2af0bc31e700019d722910ef87dd4eec3197b80b207e3045",
+						"commit": "09924c88f0fe4d11ecc655b55aa54ca372260423287cc6e70c5a6062b7bee5cf24",
 						"output": {
-							"commit": "087df32304c5d4ae8b2af0bc31e700019d722910ef87dd4eec3197b80b207e3045",
+							"commit": "09924c88f0fe4d11ecc655b55aa54ca372260423287cc6e70c5a6062b7bee5cf24",
 							"height": "2",
 							"is_coinbase": true,
 							"key_id": "0300000000000000000000000100000000",
@@ -178,7 +178,7 @@ pub trait OwnerRpc {
 							"root_key_id": "0200000000000000000000000000000000",
 							"status": "Unspent",
 							"tx_log_entry": 1,
-							"value": "60000000000"
+							"value": "1000000000000"
 						}
 					}
 				]
@@ -221,7 +221,7 @@ pub trait OwnerRpc {
 		  true,
 		  [
 			{
-			  "amount_credited": "60000000000",
+			  "amount_credited": "1000000000000",
 			  "amount_debited": "0",
 			  "confirmation_ts": "2019-01-15T16:01:26Z",
 			  "confirmed": true,
@@ -237,7 +237,7 @@ pub trait OwnerRpc {
 			  "tx_type": "ConfirmedCoinbase"
 			},
 			{
-			  "amount_credited": "60000000000",
+			  "amount_credited": "1000000000000",
 			  "amount_debited": "0",
 			  "confirmation_ts": "2019-01-15T16:01:26Z",
 			  "confirmed": true,
@@ -292,12 +292,12 @@ pub trait OwnerRpc {
 				{
 					"amount_awaiting_confirmation": "0",
 					"amount_awaiting_finalization": "0",
-					"amount_currently_spendable": "60000000000",
-					"amount_immature": "180000000000",
+					"amount_currently_spendable": "1000000000000",
+					"amount_immature": "3000000000000",
 					"amount_locked": "0",
 					"last_confirmed_height": "4",
 					"minimum_confirmations": "1",
-					"total": "240000000000"
+					"total": "4000000000000"
 				}
 			]
 		}
