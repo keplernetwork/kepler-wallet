@@ -355,7 +355,7 @@ pub trait OwnerRpc {
 			{
 			  "id": "0",
 			  "message": "my message",
-			  "message_sig": "1b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078feeae71ca7b9cb6b513a0409cb44785f92321df742a7805a77305984fd5f31c69",
+			  "message_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841b691cf3d54f980573a705782a74df2123f98547b49c40a013b5b69c7bca71aeee",
 			  "part_sig": null,
 			  "public_blind_excess": "027da3bc74bdfa9d57bc068ba0fbc3157cb8d03428806a75f7f28293cb1920e074",
 			  "public_nonce": "031b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f"
@@ -440,7 +440,7 @@ pub trait OwnerRpc {
 						{
 							"id": "1",
 							"message": "Please give me your keplers",
-							"message_sig": "1b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078ff846639a3643b5e8ebada97a54dfafe61f00f2ceff06db4052b8d46aa50765a1",
+							"message_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841ba16507a56ad4b85240db06ffcef2001fe6afdf547aa9adebe8b543369a6346f8",
 							"part_sig": null,
 							"public_blind_excess": "02e644caf501dbf58c8c25d1ead1b87c81300303f8da397fcb8cd45187cba9854e",
 							"public_nonce": "031b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f"
@@ -578,8 +578,8 @@ pub trait OwnerRpc {
 					{
 						"id": "0",
 						"message": "Ok, here are your keplers",
-						"message_sig": "1b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f4b0a737d41557c0e2114db720ad037cd5f9e9e0cbddd353974e59706801fdfad",
-						"part_sig": "1b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078fcc9da9c86bfd2fd09a09e8e5a143daf0e952693d8a6878ccc506828879d0c5d2",
+						"message_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841baddf1f800697e5743935ddbd0c9e9e5fcd37d00a72db14210e7c55417d730a4b",
+						"part_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841bd2c5d079888206c5cc78688a3d6952e9f0da43a1e5e8099ad02ffd6bc8a99dcc",
 						"public_blind_excess": "020ef0385ffbb4a8506886bd0aad778922acfaae406d765813757b7a08e4045657",
 						"public_nonce": "031b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f"
 					}
@@ -783,7 +783,7 @@ pub trait OwnerRpc {
 					"id": "1",
 					"public_blind_excess": "03c6970cd28d223932ff33146027d467194ca11269f6af01f843612a9eb76c5237",
 					"public_nonce": "031b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f",
-					"part_sig": "1b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078fd70650c94a7bd14b4f860d93eee115c795dea675e04fd71965648625d15e5758",
+					"part_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841b58575ed12586646519d74fe075a6de95c715e1ee930d864f4bd17b4ac95006d7",
 					"message": null,
 					"message_sig": null
 				}
@@ -810,7 +810,7 @@ pub trait OwnerRpc {
 						"id": "0",
 						"message": null,
 						"message_sig": null,
-						"part_sig": "1b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078ffd0ced618d7a845dd0fd8f2f3ea7ca7a04d64b515ba67f5764a8cc8cd410099c",
+						"part_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841b9c0910d48ccca864577fa65b514bd6047acaa73e2f8ffdd05d847a8d61ed0cfd",
 						"public_blind_excess": "03753c2cba849c4b14c70de681ff2e3fe1938bc3fe31562d7d0ebf4d5251a810e2",
 						"public_nonce": "031b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f"
 					},
@@ -818,7 +818,7 @@ pub trait OwnerRpc {
 						"id": "1",
 						"message": null,
 						"message_sig": null,
-						"part_sig": "1b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078fd70650c94a7bd14b4f860d93eee115c795dea675e04fd71965648625d15e5758",
+						"part_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841b58575ed12586646519d74fe075a6de95c715e1ee930d864f4bd17b4ac95006d7",
 						"public_blind_excess": "03c6970cd28d223932ff33146027d467194ca11269f6af01f843612a9eb76c5237",
 						"public_nonce": "031b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f"
 					}
@@ -838,7 +838,7 @@ pub trait OwnerRpc {
 						"kernels": [
 							{
 								"excess": "08781389569d5e37d4384104e7c34f20628ed7d534b09888d43f0d47c065eaf56a",
-								"excess_sig": "4d4b6cd1361032ca9bd2aeb9d900aa4d45d9ead80ac9423374c451a7254d0766d4133e2ad7f655a920839cc32d88e042e00614e08cadb6350a3af425d5381fb3",
+								"excess_sig": "66074d25a751c4743342c90ad8ead9454daa00d9b9aed29bca321036d16c4b4db31f38d525f43a0a35b6ad8ce01406e042e0882dc39c8320a955f6d72a3e13d4",
 								"features": "Plain",
 								"fee": "7000000",
 								"lock_height": "0"
@@ -915,7 +915,7 @@ pub trait OwnerRpc {
 						"fee": "7000000",
 						"lock_height": "0",
 						"excess": "08781389569d5e37d4384104e7c34f20628ed7d534b09888d43f0d47c065eaf56a",
-						"excess_sig": "4d4b6cd1361032ca9bd2aeb9d900aa4d45d9ead80ac9423374c451a7254d0766d4133e2ad7f655a920839cc32d88e042e00614e08cadb6350a3af425d5381fb3"
+						"excess_sig": "66074d25a751c4743342c90ad8ead9454daa00d9b9aed29bca321036d16c4b4db31f38d525f43a0a35b6ad8ce01406e042e0882dc39c8320a955f6d72a3e13d4"
 					}
 				]
 			}
@@ -1085,7 +1085,7 @@ pub trait OwnerRpc {
 				{
 					"id": "0",
 					"message": "my message",
-					"message_sig": "1b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078feeae71ca7b9cb6b513a0409cb44785f92321df742a7805a77305984fd5f31c69",
+					"message_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841b691cf3d54f980573a705782a74df2123f98547b49c40a013b5b69c7bca71aeee",
 					"part_sig": null,
 					"public_blind_excess": "027da3bc74bdfa9d57bc068ba0fbc3157cb8d03428806a75f7f28293cb1920e074",
 					"public_nonce": "031b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f"

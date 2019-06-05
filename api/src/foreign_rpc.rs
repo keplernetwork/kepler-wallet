@@ -95,7 +95,7 @@ pub trait ForeignRpc {
 			"Ok": {
 				"kernel": {
 					"excess": "09b9553db8581804d5e64721b4410139dd3c2df02f578fe91f376cb86ab1d2b583",
-					"excess_sig": "1b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f9ddfa42aa466e7b68456d1bb2c084f89040b3ea21a784aeb752d393572831add",
+					"excess_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841bdd1a837235392d75eb4a781aa23e0b04894f082cbbd15684b6e766a42aa4df9d",
 					"features": "Coinbase",
 					"fee": "0",
 					"lock_height": "0"
@@ -138,7 +138,7 @@ pub trait ForeignRpc {
 				{
 					"id": "0",
 					"message": "my message",
-					"message_sig": "1b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078feeae71ca7b9cb6b513a0409cb44785f92321df742a7805a77305984fd5f31c69",
+					"message_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841b691cf3d54f980573a705782a74df2123f98547b49c40a013b5b69c7bca71aeee",
 					"part_sig": null,
 					"public_blind_excess": "027da3bc74bdfa9d57bc068ba0fbc3157cb8d03428806a75f7f28293cb1920e074",
 					"public_nonce": "031b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f"
@@ -292,8 +292,8 @@ pub trait ForeignRpc {
 				{
 					"id": "1",
 					"message": "Thanks, Yeastplume",
-		  "message_sig": "1b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f8204e1436c3946c5035a92879826e46e5d4baa0d32dbdd6d6af2a8a8d8379329",
-					"part_sig": "1b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078fa4296369f833fdd140f4fb6c9620e1515a04a5caa0e2b0ac76d1c1e963184207",
+		  "message_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841b299337d8a8a8f26a6ddddb320daa4b5d6ee4269887925a03c546396c43e10482",
+					"part_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841b07421863e9c1d176acb0e2a0caa5045a51e120966cfbf440d1fd33f8696329a4",
 					"public_blind_excess": "023507d104bea90399bf8520fca12d87e0c01e863ed5b26ffab18b04d6f88913a7",
 					"public_nonce": "031b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f"
 				}
@@ -427,7 +427,7 @@ pub trait ForeignRpc {
 					"id": "0",
 					"public_blind_excess": "0263b332a8e8296fbc957ba7214a89f18c1d8ec7b9d1171c14fea6c14ace472dbe",
 					"public_nonce": "031b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f",
-					"part_sig": "1b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f6ff677e8fa504bef2ea26ff804f3c55a6d445630a33eb7b1f7960cd6478c2013",
+					"part_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841b13208c47d60c96f7b1b73ea33056446d5ac5f304f86fa22eef4b50fae877f66f",
 					"message": null,
 					"message_sig": null
 				}
@@ -453,7 +453,7 @@ pub trait ForeignRpc {
 						"id": "1",
 						"message": null,
 						"message_sig": null,
-						"part_sig": "1b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f641cc641dda609b9f1e12ccb28951ae872c1beafe96efe8312a4e74f8dabffa0",
+						"part_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841ba0ffab8d4fe7a41283fe6ee9afbec172e81a9528cb2ce1f1b909a6dd41c61c64",
 						"public_blind_excess": "02b2efba85ab5cca24aa8c5347eaeba60e90afeab0f85a0ab118ecaf0bebfcbce1",
 						"public_nonce": "031b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f"
 					},
@@ -461,7 +461,7 @@ pub trait ForeignRpc {
 						"id": "0",
 						"message": null,
 						"message_sig": null,
-						"part_sig": "1b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f6ff677e8fa504bef2ea26ff804f3c55a6d445630a33eb7b1f7960cd6478c2013",
+						"part_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841b13208c47d60c96f7b1b73ea33056446d5ac5f304f86fa22eef4b50fae877f66f",
 						"public_blind_excess": "0263b332a8e8296fbc957ba7214a89f18c1d8ec7b9d1171c14fea6c14ace472dbe",
 						"public_nonce": "031b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f"
 					}
@@ -481,7 +481,7 @@ pub trait ForeignRpc {
 						"kernels": [
 							{
 								"excess": "08781389569d5e37d4384104e7c34f20628ed7d534b09888d43f0d47c065eaf56a",
-								"excess_sig": "4d4b6cd1361032ca9bd2aeb9d900aa4d45d9ead80ac9423374c451a7254d0766d4133e2ad7f655a920839cc32d88e042e00614e08cadb6350a3af425d5381fb3",
+								"excess_sig": "66074d25a751c4743342c90ad8ead9454daa00d9b9aed29bca321036d16c4b4db31f38d525f43a0a35b6ad8ce01406e042e0882dc39c8320a955f6d72a3e13d4",
 								"features": "Plain",
 								"fee": "7000000",
 								"lock_height": "0"

@@ -1,6 +1,6 @@
 [package]
 name = "kepler_wallet_config"
-version = "1.1.0-beta.4"
+version = "1.1.0"
 authors = ["Kepler Developers <keplernetwork@lists.launchpad.net>"]
 description = "Configuration for kepler wallet , a simple, private and scalable cryptocurrency implementation based on the MimbleWimble chain format."
 license = "Apache-2.0"
@@ -16,7 +16,7 @@ serde_derive = "1"
 toml = "0.4"
 dirs = "1.0.3"
 
-kepler_wallet_util = { path = "../util", version = "1.1.0-beta.4" }
+kepler_wallet_util = { path = "../util", version = "1.1.0" }
 
 [dev-dependencies]
 pretty_assertions = "0.5.1"
