@@ -20,10 +20,10 @@ use uuid::Uuid;
 
 use crate::error::Error;
 use crate::internal::keys;
-use crate::kepler_core::consensus::{reward, valid_header_version};
-use crate::kepler_core::core::{HeaderVersion, Output, TxKernel};
+use crate::kepler_core::consensus::reward;
+use crate::kepler_core::core::{Output, TxKernel};
 use crate::kepler_core::global;
-use crate::kepler_core::libtx::proof::{LegacyProofBuilder, ProofBuilder};
+use crate::kepler_core::libtx::proof::ProofBuilder;
 use crate::kepler_core::libtx::reward;
 use crate::kepler_keychain::{Identifier, Keychain, SwitchCommitmentType};
 use crate::kepler_util as util;
@@ -511,26 +511,13 @@ where
 	debug!("receive_coinbase: {:?}", block_fees);
 
 	let keychain = wallet.keychain();
-	let (out, kern) = if valid_header_version(height, HeaderVersion(1)) {
-		let builder = LegacyProofBuilder::new(keychain);
-		reward::output(
-			keychain,
-			&builder,
-			&key_id,
-			block_fees.fees,
-			height,
-			test_mode,
-		)?
-	} else {
-		let builder = ProofBuilder::new(keychain);
-		reward::output(
-			keychain,
-			&builder,
-			&key_id,
-			block_fees.fees,
-			height,
-			test_mode,
-		)?
-	};
+	let (out, kern) = reward::output(
+		keychain,
+		&ProofBuilder::new(keychain),
+		&key_id,
+		block_fees.fees,
+		height,
+		test_mode,
+	)?;
 	Ok((out, kern, block_fees))
 }
