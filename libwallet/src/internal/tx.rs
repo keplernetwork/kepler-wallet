@@ -17,6 +17,8 @@
 use uuid::Uuid;
 
 use crate::internal::{selection, updater};
+use crate::kepler_core::consensus::valid_header_version;
+use crate::kepler_core::core::HeaderVersion;
 use crate::kepler_keychain::{Identifier, Keychain};
 use crate::kepler_util::Mutex;
 use crate::slate::Slate;
@@ -53,6 +55,10 @@ where
 	}
 	slate.amount = amount;
 	slate.height = current_height;
+
+	if valid_header_version(current_height, HeaderVersion(1)) {
+		slate.version_info.block_header_version = 1;
+	}
 
 	// Set the lock_height explicitly to 0 here.
 	// This will generate a Plain kernel (rather than a HeightLocked kernel).
