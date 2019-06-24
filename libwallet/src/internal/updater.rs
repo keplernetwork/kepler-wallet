@@ -23,8 +23,9 @@ use crate::internal::keys;
 use crate::kepler_core::consensus::reward;
 use crate::kepler_core::core::{Output, TxKernel};
 use crate::kepler_core::global;
+use crate::kepler_core::libtx::proof::ProofBuilder;
 use crate::kepler_core::libtx::reward;
-use crate::kepler_keychain::{Identifier, Keychain};
+use crate::kepler_keychain::{Identifier, Keychain, SwitchCommitmentType};
 use crate::kepler_util as util;
 use crate::kepler_util::secp::pedersen;
 use crate::types::{
@@ -74,7 +75,9 @@ where
 		.map(|output| {
 			let commit = match output.commit.clone() {
 				Some(c) => pedersen::Commitment::from_vec(util::from_hex(c).unwrap()),
-				None => keychain.commit(output.value, &output.key_id).unwrap(),
+				None => keychain
+					.commit(output.value, &output.key_id, &SwitchCommitmentType::Regular)
+					.unwrap(), // TODO: proper support for different switch commitment schemes
 			};
 			OutputCommitMapping { output, commit }
 		})
@@ -186,7 +189,9 @@ where
 	for out in unspents {
 		let commit = match out.commit.clone() {
 			Some(c) => pedersen::Commitment::from_vec(util::from_hex(c).unwrap()),
-			None => keychain.commit(out.value, &out.key_id).unwrap(),
+			None => keychain
+				.commit(out.value, &out.key_id, &SwitchCommitmentType::Regular)
+				.unwrap(), // TODO: proper support for different switch commitment schemes
 		};
 		wallet_outputs.insert(commit, (out.key_id.clone(), out.mmr_index));
 	}
@@ -505,8 +510,10 @@ where
 
 	debug!("receive_coinbase: {:?}", block_fees);
 
+	let keychain = wallet.keychain();
 	let (out, kern) = reward::output(
-		wallet.keychain(),
+		keychain,
+		&ProofBuilder::new(keychain),
 		&key_id,
 		block_fees.fees,
 		height,

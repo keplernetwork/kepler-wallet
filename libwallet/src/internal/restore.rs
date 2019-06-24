@@ -14,13 +14,16 @@
 //! Functions to restore a wallet's outputs from just the master seed
 
 use crate::internal::{keys, updater};
+use crate::kepler_core::consensus::{valid_header_version, WEEK_HEIGHT};
+use crate::kepler_core::core::HeaderVersion;
 use crate::kepler_core::global;
 use crate::kepler_core::libtx::proof;
-use crate::kepler_keychain::{ExtKeychain, Identifier, Keychain};
-use crate::kepler_util::secp::{key::SecretKey, pedersen};
+use crate::kepler_keychain::{ExtKeychain, Identifier, Keychain, SwitchCommitmentType};
+use crate::kepler_util::secp::pedersen;
 use crate::types::*;
 use crate::{Error, OutputCommitMapping};
 use std::collections::HashMap;
+use std::time::Instant;
 
 /// Utility struct for return values from below
 #[derive(Clone)]
@@ -41,8 +44,6 @@ struct OutputResult {
 	pub lock_height: u64,
 	///
 	pub is_coinbase: bool,
-	///
-	pub blinding: SecretKey,
 }
 
 #[derive(Debug, Clone)]
@@ -73,15 +74,38 @@ where
 		outputs.len(),
 	);
 
+	let keychain = wallet.keychain();
+	let legacy_builder = proof::LegacyProofBuilder::new(keychain);
+	let builder = proof::ProofBuilder::new(keychain);
+	let legacy_version = HeaderVersion(1);
+
 	for output in outputs.iter() {
 		let (commit, proof, is_coinbase, height, mmr_index) = output;
 		// attempt to unwind message from the RP and get a value
 		// will fail if it's not ours
-		let info = proof::rewind(wallet.keychain(), *commit, None, *proof)?;
+		let info = {
+			// Before HF+2wk, try legacy rewind first
+			let info_legacy =
+				if valid_header_version(height.saturating_sub(2 * WEEK_HEIGHT), legacy_version) {
+					proof::rewind(keychain.secp(), &legacy_builder, *commit, None, *proof)?
+				} else {
+					None
+				};
 
-		if !info.success {
-			continue;
-		}
+			// If legacy didn't work, try new rewind
+			if info_legacy.is_none() {
+				proof::rewind(keychain.secp(), &builder, *commit, None, *proof)?
+			} else {
+				info_legacy
+			}
+		};
+
+		let (amount, key_id, switch) = match info {
+			Some(i) => i,
+			None => {
+				continue;
+			}
+		};
 
 		let lock_height = if *is_coinbase {
 			*height + global::coinbase_maturity()
@@ -89,24 +113,23 @@ where
 			*height
 		};
 
-		// TODO: Output paths are always going to be length 3 for now, but easy enough to keplerd
-		// through to find the right path if required later
-		let key_id = Identifier::from_serialized_path(3u8, &info.message.as_bytes());
-
 		info!(
 			"Output found: {:?}, amount: {:?}, key_id: {:?}, mmr_index: {},",
-			commit, info.value, key_id, mmr_index,
+			commit, amount, key_id, mmr_index,
 		);
+
+		if switch != SwitchCommitmentType::Regular {
+			warn!("Unexpected switch commitment type {:?}", switch);
+		}
 
 		wallet_outputs.push(OutputResult {
 			commit: *commit,
 			key_id: key_id.clone(),
 			n_child: key_id.to_path().last_path_index(),
-			value: info.value,
+			value: amount,
 			height: *height,
 			lock_height: lock_height,
 			is_coinbase: *is_coinbase,
-			blinding: info.blinding,
 			mmr_index: *mmr_index,
 		});
 	}
@@ -402,6 +425,7 @@ where
 		return Ok(());
 	}
 
+	let now = Instant::now();
 	warn!("Starting restore.");
 
 	let result_vec = collect_chain_outputs(wallet)?;
@@ -450,5 +474,11 @@ where
 		debug!("Next child for account {} is {}", path, max_child_index + 1);
 		batch.commit()?;
 	}
+
+	let mut sec = now.elapsed().as_secs();
+	let min = sec / 60;
+	sec %= 60;
+	info!("Restored wallet in {}m{}s", min, sec);
+
 	Ok(())
 }

@@ -16,10 +16,10 @@
 
 use crate::keychain::Keychain;
 use crate::libwallet::{
-	BlockFees, CbData, ErrorKind, InitTxArgs, IssueInvoiceTxArgs, NodeClient, Slate, VersionInfo,
-	VersionedSlate, WalletBackend,
+	self, BlockFees, CbData, ErrorKind, InitTxArgs, IssueInvoiceTxArgs, NodeClient,
+	NodeVersionInfo, Slate, VersionInfo, VersionedSlate, WalletBackend,
 };
-use crate::Foreign;
+use crate::{Foreign, ForeignCheckMiddlewareFn};
 use easy_jsonrpc;
 
 /// Public definition used to generate Foreign jsonrpc api.
@@ -52,8 +52,6 @@ pub trait ForeignRpc {
 			"Ok": {
 				"foreign_api_version": 2,
 				"supported_slate_versions": [
-					"V0",
-					"V1",
 					"V2"
 				]
 			}
@@ -104,7 +102,7 @@ pub trait ForeignRpc {
 				"output": {
 					"commit": "09c217e925648404903e3c451557011e485aa8ed9571d5819fa188d794d6ea5db5",
 					"features": "Coinbase",
-					"proof": "35983019f7864d7804067fa0946fb3573e050da9335d91930c2f266ae193d0aa327efb95ad5aba4b0b124a161d7dfb5425ca6c7f769ccfee036a84d17d15536007050cb6532a79a18a5b1695af445d934281bb7cf1195eaab4a7704023744ba89b89f9ddf5d859b023b313ca7284d65b6fe5c2daa45e0c808a87bbcad84461a64a40437328b5d387863450ce6e699ef1ce8dc054db0bcc2b2c0e786d3e7ff218935f599e27cb84743b5d22c2cffc11e77b62b582357961287aa54507d5484872328e3e12d9131539231b98e33b1683fd14fb2fe996bcb4791437a9bbe00caa4f78aa62dce7f553e695e7552e6261f21c16412c5a2fcb06d86713c95db92e140dedf6ac813765b04fd28dbca102c1a31bcf3c397844f9036542fb953456e05d5fcc1780783eb8e04fd3a6612d6a8e4084b8f02ff9bb3d6e9cb2d8a4a4e2c468cb4d36ad864f9f6e5294c98e40c283be72cb900a2f018ded024e529339ba45bae6cea600ffa87f9a14e5116f24cd6f0aadf9d5d5a8aa70d31f12788a433f2b5c24cb58348cae0a7df5a277a1f168cea7e6566f4325ed6c3ac50550be0a752822f4e3c4db73740c911461ec66e3b38be02275d3cf6b39b6514c2d7cb1cc3f204597266348efe39f567bc79143c3768132c139c7aeb5757c83cc736ea4ec42fc8422308c5f237258ee5c8891a9d3ae982b7f8d0c9cbc2dd5e6e1968c65b91d5ff9a5f622b06004180a3829087e8adcae6049dd1fca2d1231129b1e597281e17e75a5b0f3fa820baf3b6451ca5fc4ba5775dad09f3dea7ffea1670ad4bd77e3f291d3b76e7a4d21e081b757d98b8122caaf707e3bf52108ac8da22a7eb6756c1f7a1998c13b3f2378dc90a8c1293357a69b2bf005c47997d69499d950ee39c5bf72e1956eb61c44cc83f271a18ac7711934abca1dae03043846ee4380f6f370850fb01268f5"
+					"proof": "f27469441ac377b0dedf1642481c33cef49355159aeae6a76ba2cc2cf5650af6c31f04863beef9ae91971f4b9fafe4af2309ef172b2e315f17513a1c6b84765b0f23adea48c0bcda629a5e3cdb407daf21458f44c763d2da6f89a81273054d7b1cb7574b6aac57debe4dbdf9e9a501113b1b86a911612d5689c58379403b74795fea2d4359c1d0839f411e1357e610e2853b4d9a2b78d72ef6cc10c642efdc72e5a0dd427d8ca49c473998438281e6784412125b14a38dcd5e00ef49508c977f967bb7deb371307da821e20ff127fd3ff23531ed975797b32ba3ea395f1bb7510d81d59b24f2bf65f387d3c10ff6085d145400c2f0770ef0a64aed00cc557d08a47a3d3db0c442a1cf6f054a740875e5ff205e710b401ca2416166097bc9c5e260df6b426ab51a2ca6af3e013ee499ad2bed67fc325c7eebb1717881d079522788bad90005318ef0f10e09c10d87bdc42b956342304ad5a9cd731903ea263b06e55b029e34e48cf2401fbd6fcd5c509a4ea9cbd72bb0c764398e3dabda2faecde33a7c5b59e1e5bbd1f0ebddee680ef9a16c12a67e12e689655e30c2ec364d4a5bdc000e9ada9dc6da5801f347acfec9a9f854ba78fddaefd777a989084a596eb83b2147046f35ddd473b00fada1eb724590a449f805e89d170017f87b1f747ff6b180e73617fcd6e7ce2b426b49b4a80beca2185c50efb0dc028c91535d430535f83bb692f0ece60fb121ce24de426a3e4bd8126f65553ff7d7e95588e4c17a228f5e26897433951fa672662ba744bd77d4846d9e8418d4c3acd490a9671583796ab58ffcc6b00f04f1a36b1691820c6f781b2b592e29f940b21e7073e92ded9d4a8de943115741e45d6e95b211f81282c72d682bb62cb5eef97cfcf108518da1bc1cafcb6d14e9ad65c3ff7311dbe922f04363ae3030e8e60bd814eac9f19a0456d4"
 				}
 			}
 		}
@@ -174,7 +172,7 @@ pub trait ForeignRpc {
 				"version_info": {
 					"orig_version": 2,
 					"version": 2,
-					"block_header_version": 1
+					"block_header_version": 2
 				}
 			}
 		]
@@ -212,7 +210,7 @@ pub trait ForeignRpc {
 			"version_info": {
 				"version": 2,
 				"orig_version": 2,
-				"block_header_version": 1
+				"block_header_version": 2
 			},
 			"num_participants": 2,
 			"id": "0436430c-2b02-624c-2032-570501212b00",
@@ -323,7 +321,7 @@ pub trait ForeignRpc {
 					{
 						"commit": "08a07f26d5b85a5858114a9cc8b7569ba123a1551b9b714e37891c53a31c864ab6",
 						"features": "Plain",
-						"proof": "03a9318b92701464c651d333a8b723672e8dc72c18a5e47e3930f5d23d6c9b7d7b5074413c77b3ace6630590024bb5041ecefd5c4408cb17afce32e03cfc4f5d07226fce8b284cb1d97d83502117fdd5fccb385dfb0b0843344131147c0dd673fa8883c7b825614da827fb8c9a4a6678ada6b612c9d235e457e5a7166f426224f07323c3dccee8e7d304a1be47523d8bf30a5f4e1f7fa6f5eef9d2f255dc299932e172530176818506b8efbc451406da373f9a1ab0f05f4615b956171f80530e8625b79ecf03d91722f39760b8ac70de12bd3eefc6ab0c104e3fa00fc5ff3b7fbd916f2231d34ece89b8118c94db4ed33cf5faec5c525c547805d521499918716ed7fa1d5bc4271631d440a67ebb4203056b1e1abe44898588ed5dc22fd1193799c18d2cba315b1bc4c65f58437136b0e5a8ed6ae5637accc04e4fa62f3d1f7344f492a15b87ab367152d28b1010c70c7f744d5d37ae04eaac30b9add23888f67d88027882ee22ee914b5ee727fa515c706801db966a282c0f9d98e1bf3829a57e5404ca6f19cf17565d12cb4589c404e13781d78552bd0ef358d5d3b2d844372f4707bde26a4b793060b9ef8b3b213b741f345d1aa066efd4ae2231bf8f3179bd4081274705c3f33ab17175dc07f271d1aaa247c8e4d7555048b0958d452104e0cc42d80d82d28918c9e066a220da8f9ec4e5bad839ff8a0014d47616f0b2495db641fa2e8e15977fda32511e6a8c019b789d582820d492450164a41ba0e3bced0651e43f5acc760388caeb2841fc77c964e6babd0ebef1cd5f33ff5d548b5b5183e6fa375174f98ecb0ec31e11fc5e2df6f59aeea8abad95dafc2ad721df9f6d47cb37013f273218487079c7a43cb91fe901daf3d641638e00e6d9c6cce82b79d24b3b6d536d6da795769afecc6b3e02b4c43cabde76526bd7abc1b677710563c629"
+						"proof": "e126a0f9ccd961bccde0750b3fc76ef32234435516913f330813e626d62b377c358c91a151c90d7da93e66fbc29135f7a7eae816b02d8846311c3bd85109c34c0e348086c97e002e023185dc6bb1273e4ab7ead79f04e34760cf12a6df0381f2b6ccd98b284df8534421c20e3b2f2bebc44adcaab9d8cf556c44646d1b4631401cc07293670136b7fea53811f06c4a045748ba60d2018cae441f2ea497f2bae903e58bd06f1a1de85b13fbb4ac33684ccd6fa73c33fdd16cc1c43a035dc62f05d477bd7dab6dbd421269a500b7fa290c2010e2eff674377f65188b88b8eeee3373b88366d7ae7653980827ab090e2d04e22c3b5f4f02984a5ba1a47d21a7607e7f0e69ce157ec42199bbc66aa554eec1f03261eb3b3213f8f73d71d1fa6001cafb5347dc58b25c8cb3fa02ee6105b68d47d00bc6d19a145f4f29521bc203bde2b5dcde4aa9acde3a8958b144a72d20b48487558eee254c4c0ac405109ce36cfa636d0278b05c419c3c4ebc87ca5d1b8c7846aa5bb3a60022300ec09dc50d54c3125b3ac4d549e32c1a262e8082a0d26b8cb494428a669eac52af1428ab539d686115a3add1428da6a571a588e33bfa3e061645539c0c279a47fb48fe98bbc72f3f34ad6bfecbace9d4c2f0a9ada2176801b4987c2b1e61728ccb6cc4225af1897ab26eebd99429f27dbb36b52f8948b3f5dd63553223a8530cb47415f7010591e2ad7bc9f562c3b6cf120b604df8a2d5495f685b2c93a36090e2cc2754e20803a2e06288c00b5da2cec7483cc28d856343d7e8829e339d6fc537fb2a661af37ebb89262521e32a24a053aafd90614189d00ca8c208ae37cf25301ff4e27ab28c85c38aa90765cb43c521f5711a6abdf54bb909ca0b6299a455bf2ce763c9c1d5710c7d15128204ad4d0f270077cd6a0c0c0bddbbf36d8ffb0c651512875a8d41cd6894"
 					},
 					{
 						"commit": "08daa3f55556f7f66ef0633bbee5ccd0b670488395faa38fcf85ad180608e2e948",
@@ -337,7 +335,7 @@ pub trait ForeignRpc {
 				"version_info": {
 					"orig_version": 2,
 					"version": 2,
-					"block_header_version": 1
+					"block_header_version": 2
 				}
 			}
 		}
@@ -370,7 +368,7 @@ pub trait ForeignRpc {
 			"version_info": {
 				"version": 2,
 				"orig_version": 2,
-				"block_header_version": 1
+				"block_header_version": 2
 			},
 			"num_participants": 2,
 			"id": "0436430c-2b02-624c-2032-570501212b00",
@@ -505,7 +503,7 @@ pub trait ForeignRpc {
 				"version_info": {
 					"orig_version": 2,
 					"version": 2,
-					"block_header_version": 1
+					"block_header_version": 2
 				}
 			}
 		}
@@ -557,6 +555,16 @@ where
 	fn finalize_invoice_tx(&self, slate: &Slate) -> Result<Slate, ErrorKind> {
 		Foreign::finalize_invoice_tx(self, slate).map_err(|e| e.kind())
 	}
+}
+
+fn test_check_middleware(
+	_name: ForeignCheckMiddlewareFn,
+	_node_version_info: Option<NodeVersionInfo>,
+	_slate: Option<&Slate>,
+) -> Result<(), libwallet::Error> {
+	// TODO: Implement checks
+	// return Err(ErrorKind::GenericError("Test Rejection".into()))?
+	Ok(())
 }
 
 /// helper to set up a real environment to run integrated doctests
@@ -677,8 +685,8 @@ pub fn run_doctest_foreign(
 	}
 
 	let mut api_foreign = match init_invoice_tx {
-		false => Foreign::new(wallet1.clone()),
-		true => Foreign::new(wallet2.clone()),
+		false => Foreign::new(wallet1.clone(), Some(test_check_middleware)),
+		true => Foreign::new(wallet2.clone(), Some(test_check_middleware)),
 	};
 	api_foreign.doctest_mode = true;
 	let foreign_api = &api_foreign as &dyn ForeignRpc;
