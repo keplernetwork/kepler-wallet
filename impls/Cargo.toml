@@ -1,6 +1,6 @@
 [package]
 name = "kepler_wallet_impls"
-version = "2.0.0"
+version = "2.0.1-beta.1"
 authors = ["Kepler Developers <keplernetwork@lists.launchpad.net>"]
 description = "Concrete types derived from libwallet traits"
 license = "Apache-2.0"
@@ -26,7 +26,7 @@ tokio-retry = "0.1"
 uuid = { version = "0.7", features = ["serde", "v4"] }
 chrono = { version = "0.4.4", features = ["serde"] }
 
-kepler_wallet_util = { path = "../util", version = "2.0.0" }
+kepler_wallet_util = { path = "../util", version = "2.0.1-beta.1" }
 
-kepler_wallet_libwallet = { path = "../libwallet", version = "2.0.0" }
-kepler_wallet_config = { path = "../config", version = "2.0.0" }
+kepler_wallet_libwallet = { path = "../libwallet", version = "2.0.1-beta.1" }
+kepler_wallet_config = { path = "../config", version = "2.0.1-beta.1" }
