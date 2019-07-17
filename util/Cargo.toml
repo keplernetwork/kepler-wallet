@@ -1,6 +1,6 @@
 [package]
 name = "kepler_wallet_util"
-version = "2.0.0-beta.1"
+version = "2.0.0"
 authors = ["Kepler Developers <keplernetwork@lists.launchpad.net>"]
 description = "Util, for generic utilities and to re-export kepler crates"
 license = "Apache-2.0"
@@ -25,12 +25,12 @@ dirs = "1.0.3"
 # kepler_store = { git = "https://github.com/keplernetwork/kepler", tag = "1.1.0" }
 
 # For beta release
-kepler_core = { git = "https://github.com/keplernetwork/kepler", rev = "c49442e24bc2d2a90765ccf74daba828be8e8417" }
-kepler_keychain = { git = "https://github.com/keplernetwork/kepler", rev = "c49442e24bc2d2a90765ccf74daba828be8e8417" }
-kepler_chain = { git = "https://github.com/keplernetwork/kepler", rev = "c49442e24bc2d2a90765ccf74daba828be8e8417" }
-kepler_util = { git = "https://github.com/keplernetwork/kepler", rev = "c49442e24bc2d2a90765ccf74daba828be8e8417" }
-kepler_api = { git = "https://github.com/keplernetwork/kepler", rev = "c49442e24bc2d2a90765ccf74daba828be8e8417" }
-kepler_store = { git = "https://github.com/keplernetwork/kepler", rev = "c49442e24bc2d2a90765ccf74daba828be8e8417" }
+kepler_core = { git = "https://github.com/keplernetwork/kepler", branch = "master" }
+kepler_keychain = { git = "https://github.com/keplernetwork/kepler", branch = "master"  }
+kepler_chain = { git = "https://github.com/keplernetwork/kepler", branch = "master"  }
+kepler_util = { git = "https://github.com/keplernetwork/kepler", branch = "master"  }
+kepler_api = { git = "https://github.com/keplernetwork/kepler", branch = "master"  }
+kepler_store = { git = "https://github.com/keplernetwork/kepler", branch = "master"  }
 
 # For bleeding edge
 # kepler_core = { git = "https://github.com/sulaweisi/kepler", branch = "kepler-milestone/2.0.0" }
