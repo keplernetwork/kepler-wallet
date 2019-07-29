@@ -20,15 +20,16 @@ mod wallet_tests {
 	use kepler_wallet_impls::test_framework::{self, LocalWalletClient, WalletProxy};
 
 	use clap::{App, ArgMatches};
+	use std::path::PathBuf;
 	use std::sync::Arc;
 	use std::thread;
 	use std::time::Duration;
 	use std::{env, fs};
-	use util::Mutex;
+	use util::{Mutex, ZeroingString};
 
-	use kepler_wallet_config::{GlobalWalletConfig, WalletConfig};
-	use kepler_wallet_impls::{LMDBBackend, WalletSeed};
-	use kepler_wallet_libwallet::{WalletBackend, WalletInst};
+	use kepler_wallet_config::{GlobalWalletConfig, WalletConfig, KEPLER_WALLET_DIR};
+	use kepler_wallet_impls::{DefaultLCProvider, DefaultWalletImpl};
+	use kepler_wallet_libwallet::WalletInst;
 	use kepler_wallet_util::kepler_core::global::{self, ChainTypes};
 	use kepler_wallet_util::kepler_keychain::ExtKeychain;
 
@@ -122,16 +123,44 @@ mod wallet_tests {
 		passphrase: &str,
 		account: &str,
 	) -> Result<
-		Arc<Mutex<WalletInst<LocalWalletClient, ExtKeychain>>>,
+		Arc<
+			Mutex<
+				Box<
+					WalletInst<
+						'static,
+						DefaultLCProvider<'static, LocalWalletClient, ExtKeychain>,
+						LocalWalletClient,
+						ExtKeychain,
+					>,
+				>,
+			>,
+		>,
 		kepler_wallet_controller::Error,
 	> {
 		wallet_config.chain_type = None;
-		// First test decryption, so we can abort early if we have the wrong password
-		let _ = WalletSeed::from_file(&wallet_config, passphrase)?;
-		let mut db_wallet = LMDBBackend::new(wallet_config.clone(), passphrase, node_client)?;
-		db_wallet.set_parent_key_id_by_name(account)?;
-		info!("Using LMDB Backend for wallet");
-		Ok(Arc::new(Mutex::new(db_wallet)))
+		let mut wallet = Box::new(DefaultWalletImpl::<LocalWalletClient>::new(node_client).unwrap())
+			as Box<
+				WalletInst<
+					DefaultLCProvider<'static, LocalWalletClient, ExtKeychain>,
+					LocalWalletClient,
+					ExtKeychain,
+				>,
+			>;
+		let lc = wallet.lc_provider().unwrap();
+		// legacy hack to avoid the need for changes in existing kepler-wallet.toml files
+		// remove `wallet_data` from end of path as
+		// new lifecycle provider assumes kepler_wallet.toml is in root of data directory
+		let mut top_level_wallet_dir = PathBuf::from(wallet_config.clone().data_file_dir);
+		if top_level_wallet_dir.ends_with(KEPLER_WALLET_DIR) {
+			top_level_wallet_dir.pop();
+			wallet_config.data_file_dir = top_level_wallet_dir.to_str().unwrap().into();
+		}
+		lc.set_wallet_directory(&wallet_config.data_file_dir);
+		lc.open_wallet(None, ZeroingString::from(passphrase))
+			.unwrap();
+		let wallet_inst = lc.wallet_inst()?;
+		wallet_inst.set_parent_key_id_by_name(account)?;
+		Ok(Arc::new(Mutex::new(wallet)))
 	}
 
 	fn execute_command(
@@ -153,8 +182,11 @@ mod wallet_tests {
 	fn command_line_test_impl(test_dir: &str) -> Result<(), kepler_wallet_controller::Error> {
 		setup(test_dir);
 		// Create a new proxy to simulate server and wallet responses
-		let mut wallet_proxy: WalletProxy<LocalWalletClient, ExtKeychain> =
-			WalletProxy::new(test_dir);
+		let mut wallet_proxy: WalletProxy<
+			DefaultLCProvider<LocalWalletClient, ExtKeychain>,
+			LocalWalletClient,
+			ExtKeychain,
+		> = WalletProxy::new(test_dir);
 		let chain = wallet_proxy.chain.clone();
 
 		// load app yaml. If it don't exist, just say so and exit
@@ -559,7 +591,7 @@ mod wallet_tests {
 
 		// get tx output via -tx parameter
 		let mut tx_id = "".to_string();
-		grin_wallet_controller::controller::owner_single_use(wallet2.clone(), |api| {
+		kepler_wallet_controller::controller::owner_single_use(wallet2.clone(), |api| {
 			api.set_active_account("default")?;
 			let (_, txs) = api.retrieve_txs(true, None, None)?;
 			let some_tx_id = txs[0].tx_slate_id.clone();
@@ -567,7 +599,7 @@ mod wallet_tests {
 			tx_id = some_tx_id.unwrap().to_hyphenated().to_string().clone();
 			Ok(())
 		})?;
-		let arg_vec = vec!["grin-wallet", "-p", "password", "txs", "-t", &tx_id[..]];
+		let arg_vec = vec!["kepler-wallet", "-p", "password", "txs", "-t", &tx_id[..]];
 		execute_command(&app, test_dir, "wallet2", &client2, arg_vec)?;
 
 		// let logging finish
