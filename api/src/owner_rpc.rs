@@ -23,7 +23,7 @@ use crate::libwallet::{
 	WalletLCProvider,
 };
 use crate::util::Mutex;
-use crate::Owner;
+use crate::{Owner, OwnerRpcS};
 use easy_jsonrpc;
 use std::sync::Arc;
 
@@ -63,7 +63,7 @@ pub trait OwnerRpc {
 		"id": 1
 	}
 	# "#
-	# , 4, false, false, false);
+	# , false, 4, false, false, false);
 	```
 	*/
 	fn accounts(&self) -> Result<Vec<AcctPathMapping>, ErrorKind>;
@@ -93,7 +93,7 @@ pub trait OwnerRpc {
 		"id": 1
 	}
 	# "#
-	# ,4, false, false, false);
+	# ,false, 4, false, false, false);
 	```
 	 */
 	fn create_account_path(&self, label: &String) -> Result<Identifier, ErrorKind>;
@@ -123,7 +123,7 @@ pub trait OwnerRpc {
 		"id": 1
 	}
 	# "#
-	# , 4, false, false, false);
+	# , false, 4, false, false, false);
 	```
 	 */
 	fn set_active_account(&self, label: &String) -> Result<(), ErrorKind>;
@@ -189,7 +189,7 @@ pub trait OwnerRpc {
 		}
 	}
 	# "#
-	# , 2, false, false, false);
+	# , false, 2, false, false, false);
 	```
 	*/
 	fn retrieve_outputs(
@@ -260,7 +260,7 @@ pub trait OwnerRpc {
 	  }
 	}
 	# "#
-	# , 2, false, false, false);
+	# , false, 2, false, false, false);
 	```
 	*/
 
@@ -306,7 +306,7 @@ pub trait OwnerRpc {
 		}
 	}
 	# "#
-	# ,4, false, false, false);
+	# ,false, 4, false, false, false);
 	```
 	 */
 
@@ -400,7 +400,7 @@ pub trait OwnerRpc {
 	  }
 	}
 		# "#
-		# ,4, false, false, false);
+		# ,false, 4, false, false, false);
 	```
 	*/
 
@@ -480,7 +480,7 @@ pub trait OwnerRpc {
 			}
 		}
 		# "#
-		# ,4, false, false, false);
+		# ,false, 4, false, false, false);
 	```
 	*/
 
@@ -628,7 +628,7 @@ pub trait OwnerRpc {
 		}
 	}
 	# "#
-	# ,4, false, false, false);
+	# ,false, 4, false, false, false);
 	```
 	*/
 
@@ -712,7 +712,7 @@ pub trait OwnerRpc {
 		}
 	}
 	# "#
-	# ,5 ,true, false, false);
+	# ,false, 5 ,true, false, false);
 
 	```
 	 */
@@ -879,7 +879,7 @@ pub trait OwnerRpc {
 		}
 	}
 	# "#
-	# , 5, true, true, false);
+	# , false, 5, true, true, false);
 	```
 	 */
 	fn finalize_tx(&self, slate: VersionedSlate) -> Result<VersionedSlate, ErrorKind>;
@@ -945,7 +945,7 @@ pub trait OwnerRpc {
 		}
 	}
 	# "#
-	# , 5, true, true, true);
+	# , false, 5, true, true, true);
 	```
 	 */
 
@@ -975,7 +975,7 @@ pub trait OwnerRpc {
 		}
 	}
 	# "#
-	# , 5, true, true, false);
+	# , false, 5, true, true, false);
 	```
 	 */
 	fn cancel_tx(&self, tx_id: Option<u32>, tx_slate_id: Option<Uuid>) -> Result<(), ErrorKind>;
@@ -1070,7 +1070,7 @@ pub trait OwnerRpc {
 		}
 	}
 	# "#
-	# , 5, true, true, false);
+	# , false, 5, true, true, false);
 	```
 	 */
 	fn get_stored_tx(&self, tx: &TxLogEntry) -> Result<Option<Transaction>, ErrorKind>;
@@ -1148,7 +1148,7 @@ pub trait OwnerRpc {
 		}
 	}
 	# "#
-	# ,5 ,true, false, false);
+	# ,false, 5 ,true, false, false);
 	```
 	*/
 	fn verify_slate_messages(&self, slate: VersionedSlate) -> Result<(), ErrorKind>;
@@ -1177,7 +1177,7 @@ pub trait OwnerRpc {
 		}
 	}
 	# "#
-	# , 1, false, false, false);
+	# , false, 1, false, false, false);
 	```
 	 */
 	fn restore(&self) -> Result<(), ErrorKind>;
@@ -1206,7 +1206,7 @@ pub trait OwnerRpc {
 		}
 	}
 	# "#
-	# , 1, false, false, false);
+	# , false, 1, false, false, false);
 	```
 	 */
 	fn check_repair(&self, delete_unconfirmed: bool) -> Result<(), ErrorKind>;
@@ -1238,7 +1238,7 @@ pub trait OwnerRpc {
 		}
 	}
 	# "#
-	# , 5, false, false, false);
+	# , false, 5, false, false, false);
 	```
 	 */
 	fn node_height(&self) -> Result<NodeHeightResult, ErrorKind>;
@@ -1251,15 +1251,15 @@ where
 	K: Keychain + 'a,
 {
 	fn accounts(&self) -> Result<Vec<AcctPathMapping>, ErrorKind> {
-		Owner::accounts(self).map_err(|e| e.kind())
+		Owner::accounts(self, None).map_err(|e| e.kind())
 	}
 
 	fn create_account_path(&self, label: &String) -> Result<Identifier, ErrorKind> {
-		Owner::create_account_path(self, label).map_err(|e| e.kind())
+		Owner::create_account_path(self, None, label).map_err(|e| e.kind())
 	}
 
 	fn set_active_account(&self, label: &String) -> Result<(), ErrorKind> {
-		Owner::set_active_account(self, label).map_err(|e| e.kind())
+		Owner::set_active_account(self, None, label).map_err(|e| e.kind())
 	}
 
 	fn retrieve_outputs(
@@ -1268,7 +1268,8 @@ where
 		refresh_from_node: bool,
 		tx_id: Option<u32>,
 	) -> Result<(bool, Vec<OutputCommitMapping>), ErrorKind> {
-		Owner::retrieve_outputs(self, include_spent, refresh_from_node, tx_id).map_err(|e| e.kind())
+		Owner::retrieve_outputs(self, None, include_spent, refresh_from_node, tx_id)
+			.map_err(|e| e.kind())
 	}
 
 	fn retrieve_txs(
@@ -1277,7 +1278,7 @@ where
 		tx_id: Option<u32>,
 		tx_slate_id: Option<Uuid>,
 	) -> Result<(bool, Vec<TxLogEntry>), ErrorKind> {
-		Owner::retrieve_txs(self, refresh_from_node, tx_id, tx_slate_id).map_err(|e| e.kind())
+		Owner::retrieve_txs(self, None, refresh_from_node, tx_id, tx_slate_id).map_err(|e| e.kind())
 	}
 
 	fn retrieve_summary_info(
@@ -1285,18 +1286,18 @@ where
 		refresh_from_node: bool,
 		minimum_confirmations: u64,
 	) -> Result<(bool, WalletInfo), ErrorKind> {
-		Owner::retrieve_summary_info(self, refresh_from_node, minimum_confirmations)
+		Owner::retrieve_summary_info(self, None, refresh_from_node, minimum_confirmations)
 			.map_err(|e| e.kind())
 	}
 
 	fn init_send_tx(&self, args: InitTxArgs) -> Result<VersionedSlate, ErrorKind> {
-		let slate = Owner::init_send_tx(self, args).map_err(|e| e.kind())?;
+		let slate = Owner::init_send_tx(self, None, args).map_err(|e| e.kind())?;
 		let version = SlateVersion::V2;
 		Ok(VersionedSlate::into_version(slate, version))
 	}
 
 	fn issue_invoice_tx(&self, args: IssueInvoiceTxArgs) -> Result<VersionedSlate, ErrorKind> {
-		let slate = Owner::issue_invoice_tx(self, args).map_err(|e| e.kind())?;
+		let slate = Owner::issue_invoice_tx(self, None, args).map_err(|e| e.kind())?;
 		let version = SlateVersion::V2;
 		Ok(VersionedSlate::into_version(slate, version))
 	}
@@ -1307,14 +1308,15 @@ where
 		args: InitTxArgs,
 	) -> Result<VersionedSlate, ErrorKind> {
 		let in_slate = Slate::from(slate);
-		let out_slate = Owner::process_invoice_tx(self, &in_slate, args).map_err(|e| e.kind())?;
+		let out_slate =
+			Owner::process_invoice_tx(self, None, &in_slate, args).map_err(|e| e.kind())?;
 		let version = SlateVersion::V2;
 		Ok(VersionedSlate::into_version(out_slate, version))
 	}
 
 	fn finalize_tx(&self, slate: VersionedSlate) -> Result<VersionedSlate, ErrorKind> {
 		let in_slate = Slate::from(slate);
-		let out_slate = Owner::finalize_tx(self, &in_slate).map_err(|e| e.kind())?;
+		let out_slate = Owner::finalize_tx(self, None, &in_slate).map_err(|e| e.kind())?;
 		let version = SlateVersion::V2;
 		Ok(VersionedSlate::into_version(out_slate, version))
 	}
@@ -1325,36 +1327,36 @@ where
 		participant_id: usize,
 	) -> Result<(), ErrorKind> {
 		let in_slate = Slate::from(slate);
-		Owner::tx_lock_outputs(self, &in_slate, participant_id).map_err(|e| e.kind())
+		Owner::tx_lock_outputs(self, None, &in_slate, participant_id).map_err(|e| e.kind())
 	}
 
 	fn cancel_tx(&self, tx_id: Option<u32>, tx_slate_id: Option<Uuid>) -> Result<(), ErrorKind> {
-		Owner::cancel_tx(self, tx_id, tx_slate_id).map_err(|e| e.kind())
+		Owner::cancel_tx(self, None, tx_id, tx_slate_id).map_err(|e| e.kind())
 	}
 
 	fn get_stored_tx(&self, tx: &TxLogEntry) -> Result<Option<Transaction>, ErrorKind> {
-		Owner::get_stored_tx(self, tx).map_err(|e| e.kind())
+		Owner::get_stored_tx(self, None, tx).map_err(|e| e.kind())
 	}
 
 	fn post_tx(&self, tx: &Transaction, fluff: bool) -> Result<(), ErrorKind> {
-		Owner::post_tx(self, tx, fluff).map_err(|e| e.kind())
+		Owner::post_tx(self, None, tx, fluff).map_err(|e| e.kind())
 	}
 
 	fn verify_slate_messages(&self, slate: VersionedSlate) -> Result<(), ErrorKind> {
 		let in_slate = Slate::from(slate);
-		Owner::verify_slate_messages(self, &in_slate).map_err(|e| e.kind())
+		Owner::verify_slate_messages(self, None, &in_slate).map_err(|e| e.kind())
 	}
 
 	fn restore(&self) -> Result<(), ErrorKind> {
-		Owner::restore(self).map_err(|e| e.kind())
+		Owner::restore(self, None).map_err(|e| e.kind())
 	}
 
 	fn check_repair(&self, delete_unconfirmed: bool) -> Result<(), ErrorKind> {
-		Owner::check_repair(self, delete_unconfirmed).map_err(|e| e.kind())
+		Owner::check_repair(self, None, delete_unconfirmed).map_err(|e| e.kind())
 	}
 
 	fn node_height(&self) -> Result<NodeHeightResult, ErrorKind> {
-		Owner::node_height(self).map_err(|e| e.kind())
+		Owner::node_height(self, None).map_err(|e| e.kind())
 	}
 }
 
@@ -1362,6 +1364,7 @@ where
 pub fn run_doctest_owner(
 	request: serde_json::Value,
 	test_dir: &str,
+	use_token: bool,
 	blocks_to_mine: u64,
 	perform_tx: bool,
 	lock_tx: bool,
@@ -1412,10 +1415,21 @@ pub fn run_doctest_owner(
 	lc.set_wallet_directory(&format!("{}/wallet1", test_dir));
 	lc.create_wallet(None, Some(rec_phrase_1), 32, empty_string.clone())
 		.unwrap();
-	lc.open_wallet(None, empty_string.clone()).unwrap();
+	let mask1 = lc
+		.open_wallet(None, empty_string.clone(), use_token, true)
+		.unwrap();
 	let wallet1 = Arc::new(Mutex::new(wallet1));
 
-	wallet_proxy.add_wallet("wallet1", client1.get_send_instance(), wallet1.clone());
+	if mask1.is_some() {
+		println!("WALLET 1 MASK: {:?}", mask1.clone().unwrap());
+	}
+
+	wallet_proxy.add_wallet(
+		"wallet1",
+		client1.get_send_instance(),
+		wallet1.clone(),
+		mask1.clone(),
+	);
 
 	let rec_phrase_2 = util::ZeroingString::from(
 		"hour kingdom ripple lunch razor inquiry coyote clay stamp mean \
@@ -1436,10 +1450,21 @@ pub fn run_doctest_owner(
 	lc.set_wallet_directory(&format!("{}/wallet2", test_dir));
 	lc.create_wallet(None, Some(rec_phrase_2), 32, empty_string.clone())
 		.unwrap();
-	lc.open_wallet(None, empty_string.clone()).unwrap();
+	let mask2 = lc
+		.open_wallet(None, empty_string.clone(), use_token, true)
+		.unwrap();
 	let wallet2 = Arc::new(Mutex::new(wallet2));
 
-	wallet_proxy.add_wallet("wallet2", client2.get_send_instance(), wallet2.clone());
+	if mask2.is_some() {
+		println!("WALLET 2 MASK: {:?}", mask2.clone().unwrap());
+	}
+
+	wallet_proxy.add_wallet(
+		"wallet2",
+		client2.get_send_instance(),
+		wallet2.clone(),
+		mask2.clone(),
+	);
 
 	// Set the wallet proxy listener running
 	thread::spawn(move || {
@@ -1450,12 +1475,18 @@ pub fn run_doctest_owner(
 
 	// Mine a few blocks to wallet 1 so there's something to send
 	for _ in 0..blocks_to_mine {
-		let _ = test_framework::award_blocks_to_wallet(&chain, wallet1.clone(), 1 as usize, false);
+		let _ = test_framework::award_blocks_to_wallet(
+			&chain,
+			wallet1.clone(),
+			(&mask1).as_ref(),
+			1 as usize,
+			false,
+		);
 		//update local outputs after each block, so transaction IDs stay consistent
 		let mut w_lock = wallet1.lock();
 		let w = w_lock.lc_provider().unwrap().wallet_inst().unwrap();
 		let (wallet_refreshed, _) =
-			api_impl::owner::retrieve_summary_info(&mut **w, true, 1).unwrap();
+			api_impl::owner::retrieve_summary_info(&mut **w, (&mask1).as_ref(), true, 1).unwrap();
 		assert!(wallet_refreshed);
 	}
 
@@ -1472,23 +1503,32 @@ pub fn run_doctest_owner(
 			selection_strategy_is_use_all: true,
 			..Default::default()
 		};
-		let mut slate = api_impl::owner::init_send_tx(&mut **w, args, true).unwrap();
+		let mut slate =
+			api_impl::owner::init_send_tx(&mut **w, (&mask1).as_ref(), args, true).unwrap();
 		println!("INITIAL SLATE");
 		println!("{}", serde_json::to_string_pretty(&slate).unwrap());
 		{
 			let mut w_lock = wallet2.lock();
 			let w2 = w_lock.lc_provider().unwrap().wallet_inst().unwrap();
-			slate = api_impl::foreign::receive_tx(&mut **w2, &slate, None, None, true).unwrap();
+			slate = api_impl::foreign::receive_tx(
+				&mut **w2,
+				(&mask2).as_ref(),
+				&slate,
+				None,
+				None,
+				true,
+			)
+			.unwrap();
 			w2.close().unwrap();
 		}
 		// Spit out slate for input to finalize_tx
 		if lock_tx {
-			api_impl::owner::tx_lock_outputs(&mut **w, &slate, 0).unwrap();
+			api_impl::owner::tx_lock_outputs(&mut **w, (&mask2).as_ref(), &slate, 0).unwrap();
 		}
 		println!("RECEIPIENT SLATE");
 		println!("{}", serde_json::to_string_pretty(&slate).unwrap());
 		if finalize_tx {
-			slate = api_impl::owner::finalize_tx(&mut **w, &slate).unwrap();
+			slate = api_impl::owner::finalize_tx(&mut **w, (&mask2).as_ref(), &slate).unwrap();
 			error!("FINALIZED TX SLATE");
 			println!("{}", serde_json::to_string_pretty(&slate).unwrap());
 		}
@@ -1496,19 +1536,30 @@ pub fn run_doctest_owner(
 
 	if perform_tx && lock_tx && finalize_tx {
 		// mine to move the chain on
-		let _ = test_framework::award_blocks_to_wallet(&chain, wallet1.clone(), 3 as usize, false);
+		let _ = test_framework::award_blocks_to_wallet(
+			&chain,
+			wallet1.clone(),
+			(&mask1).as_ref(),
+			3 as usize,
+			false,
+		);
 	}
 
 	let mut api_owner = Owner::new(wallet1);
 	api_owner.doctest_mode = true;
-	let owner_api = &api_owner as &dyn OwnerRpc;
-	Ok(owner_api.handle_request(request).as_option())
+	if use_token {
+		let owner_api = &api_owner as &dyn OwnerRpcS;
+		Ok(owner_api.handle_request(request).as_option())
+	} else {
+		let owner_api = &api_owner as &dyn OwnerRpc;
+		Ok(owner_api.handle_request(request).as_option())
+	}
 }
 
 #[doc(hidden)]
 #[macro_export]
 macro_rules! doctest_helper_json_rpc_owner_assert_response {
-	($request:expr, $expected_response:expr, $blocks_to_mine:expr, $perform_tx:expr, $lock_tx:expr, $finalize_tx:expr) => {
+	($request:expr, $expected_response:expr, $use_token:expr, $blocks_to_mine:expr, $perform_tx:expr, $lock_tx:expr, $finalize_tx:expr) => {
 		// create temporary wallet, run jsonrpc request on owner api of wallet, delete wallet, return
 		// json response.
 		// In order to prevent leaking tempdirs, This function should not panic.
@@ -1530,6 +1581,7 @@ macro_rules! doctest_helper_json_rpc_owner_assert_response {
 		let response = run_doctest_owner(
 			request_val,
 			dir,
+			$use_token,
 			$blocks_to_mine,
 			$perform_tx,
 			$lock_tx,
