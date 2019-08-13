@@ -23,12 +23,11 @@ use crate::core::global;
 use crate::util::init_logger;
 use clap::App;
 use kepler_wallet_config as config;
-use kepler_wallet_util::kepler_api as api;
 use kepler_wallet_util::kepler_core as core;
 use kepler_wallet_util::kepler_util as util;
 use std::env;
 
-mod cmd;
+use kepler_wallet::cmd;
 
 // include build information
 pub mod built_info {

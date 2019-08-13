@@ -10,5 +10,4 @@ target
 kepler.log
 wallet.seed
 test_output
-wallet*
 .idea/

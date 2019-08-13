@@ -53,7 +53,7 @@ pub use crate::foreign_rpc::foreign_rpc as foreign_rpc_client;
 pub use crate::foreign_rpc::run_doctest_foreign;
 pub use crate::owner_rpc::run_doctest_owner;
 
-use grin_wallet_util::grin_core::libtx::secp_ser;
+use kepler_wallet_util::kepler_core::libtx::secp_ser;
 use util::secp::key::SecretKey;
 
 /// Wrapper for API Tokens
