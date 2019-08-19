@@ -30,7 +30,7 @@ use kepler_wallet_impls::DefaultLCProvider;
 use kepler_wallet_util::kepler_keychain::ExtKeychain;
 
 mod common;
-use common::{execute_command, initial_setup_wallet, instantiate_wallet, setup};
+use common::{clean_output_dir, execute_command, initial_setup_wallet, instantiate_wallet, setup};
 
 /// command line tests
 fn command_line_test_impl(test_dir: &str) -> Result<(), kepler_wallet_controller::Error> {
@@ -482,6 +482,7 @@ fn command_line_test_impl(test_dir: &str) -> Result<(), kepler_wallet_controller
 
 	// let logging finish
 	thread::sleep(Duration::from_millis(200));
+	clean_output_dir(test_dir);
 	Ok(())
 }
 
