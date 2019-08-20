@@ -16,7 +16,6 @@
 
 use crate::error::{Error, ErrorKind};
 use crate::internal::keys;
-use crate::internal::keys;
 use crate::kepler_core::core::amount_to_hr_string;
 use crate::kepler_core::libtx::{
 	build,
@@ -287,9 +286,10 @@ where
 	let (mut parts, change_amounts_derivations) =
 		inputs_and_change(&coins, wallet, keychain_mask, amount, fee, change_outputs)?;
 
-	// This is more proof of concept than anything but here we set lock_height
-	// on tx being sent (based on current chain height via api).
-	parts.push(build::with_lock_height(lock_height));
+	// Build a "Plain" kernel unless lock_height>0 explicitly specified.
+	if lock_height > 0 {
+		parts.push(build::with_lock_height(lock_height));
+	}
 
 	Ok((parts, coins, change_amounts_derivations, fee))
 }

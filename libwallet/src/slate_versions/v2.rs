@@ -35,13 +35,14 @@
 //!    orig_version: u16,
 //!    block_header_version: u16,
 
-use crate::kepler_core::core::transaction::{KernelFeatures, OutputFeatures};
+use crate::kepler_core::core::transaction::OutputFeatures;
 use crate::kepler_core::libtx::secp_ser;
 use crate::kepler_keychain::BlindingFactor;
 use crate::kepler_util::secp;
 use crate::kepler_util::secp::key::PublicKey;
 use crate::kepler_util::secp::pedersen::{Commitment, RangeProof};
 use crate::kepler_util::secp::Signature;
+use crate::slate::CompatKernelFeatures;
 use uuid::Uuid;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -162,7 +163,7 @@ pub struct OutputV2 {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct TxKernelV2 {
 	/// Options for a kernel's structure or use
-	pub features: KernelFeatures,
+	pub features: CompatKernelFeatures,
 	/// Fee originally included in the transaction this proof is for.
 	#[serde(with = "secp_ser::string_or_u64")]
 	pub fee: u64,

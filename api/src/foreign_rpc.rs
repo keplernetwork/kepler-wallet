@@ -95,8 +95,6 @@ pub trait ForeignRpc {
 					"excess": "09b9553db8581804d5e64721b4410139dd3c2df02f578fe91f376cb86ab1d2b583",
 					"excess_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841bdd1a837235392d75eb4a781aa23e0b04894f082cbbd15684b6e766a42aa4df9d",
 					"features": "Coinbase",
-					"fee": "0",
-					"lock_height": "0"
 				},
 				"key_id": "0300000000000000000000000400000000",
 				"output": {
@@ -192,7 +190,7 @@ pub trait ForeignRpc {
 	# ,false, 1 ,false, false);
 	```
 	*/
-	fn verify_slate_messages(&self, slate: &Slate) -> Result<(), ErrorKind>;
+	fn verify_slate_messages(&self, slate: VersionedSlate) -> Result<(), ErrorKind>;
 
 	/**
 		Networked version of [Foreign::receive_tx](struct.Foreign.html#method.receive_tx).
@@ -513,7 +511,7 @@ pub trait ForeignRpc {
 	# ,false, 5, false, true);
 	```
 	*/
-	fn finalize_invoice_tx(&self, slate: &Slate) -> Result<Slate, ErrorKind>;
+	fn finalize_invoice_tx(&self, slate: VersionedSlate) -> Result<VersionedSlate, ErrorKind>;
 }
 
 impl<'a, L, C, K> ForeignRpc for Foreign<'a, L, C, K>
@@ -530,31 +528,32 @@ where
 		Foreign::build_coinbase(self, block_fees).map_err(|e| e.kind())
 	}
 
-	fn verify_slate_messages(&self, slate: &Slate) -> Result<(), ErrorKind> {
-		Foreign::verify_slate_messages(self, slate).map_err(|e| e.kind())
+	fn verify_slate_messages(&self, slate: VersionedSlate) -> Result<(), ErrorKind> {
+		Foreign::verify_slate_messages(self, &Slate::from(slate)).map_err(|e| e.kind())
 	}
 
 	fn receive_tx(
 		&self,
-		slate: VersionedSlate,
+		in_slate: VersionedSlate,
 		dest_acct_name: Option<String>,
 		message: Option<String>,
 	) -> Result<VersionedSlate, ErrorKind> {
-		let version = slate.version();
-		let slate: Slate = slate.into();
-		let slate = Foreign::receive_tx(
+		let version = in_slate.version();
+		let out_slate = Foreign::receive_tx(
 			self,
-			&slate,
+			&Slate::from(in_slate),
 			dest_acct_name.as_ref().map(String::as_str),
 			message,
 		)
 		.map_err(|e| e.kind())?;
-
-		Ok(VersionedSlate::into_version(slate, version))
+		Ok(VersionedSlate::into_version(out_slate, version))
 	}
 
-	fn finalize_invoice_tx(&self, slate: &Slate) -> Result<Slate, ErrorKind> {
-		Foreign::finalize_invoice_tx(self, slate).map_err(|e| e.kind())
+	fn finalize_invoice_tx(&self, in_slate: VersionedSlate) -> Result<VersionedSlate, ErrorKind> {
+		let version = in_slate.version();
+		let out_slate =
+			Foreign::finalize_invoice_tx(self, &Slate::from(in_slate)).map_err(|e| e.kind())?;
+		Ok(VersionedSlate::into_version(out_slate, version))
 	}
 }
 
