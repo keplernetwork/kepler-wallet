@@ -17,7 +17,8 @@
 use crate::keychain::Keychain;
 use crate::libwallet::{
 	self, BlockFees, CbData, ErrorKind, InitTxArgs, IssueInvoiceTxArgs, NodeClient,
-	NodeVersionInfo, Slate, VersionInfo, VersionedSlate, WalletLCProvider,
+	NodeVersionInfo, Slate, SlateVersion, VersionInfo, VersionedCoinbase, VersionedSlate,
+	WalletLCProvider,
 };
 use crate::{Foreign, ForeignCheckMiddlewareFn};
 use easy_jsonrpc_mw;
@@ -95,6 +96,8 @@ pub trait ForeignRpc {
 					"excess": "09b9553db8581804d5e64721b4410139dd3c2df02f578fe91f376cb86ab1d2b583",
 					"excess_sig": "8f07ddd5e9f5179cff19486034181ed76505baaad53e5d994064127b56c5841bdd1a837235392d75eb4a781aa23e0b04894f082cbbd15684b6e766a42aa4df9d",
 					"features": "Coinbase",
+					"fee": "0",
+					"lock_height": "0"
 				},
 				"key_id": "0300000000000000000000000400000000",
 				"output": {
@@ -110,7 +113,7 @@ pub trait ForeignRpc {
 	```
 	*/
 
-	fn build_coinbase(&self, block_fees: &BlockFees) -> Result<CbData, ErrorKind>;
+	fn build_coinbase(&self, block_fees: &BlockFees) -> Result<VersionedCoinbase, ErrorKind>;
 
 	/**
 	Networked version of [Foreign::verify_slate_messages](struct.Foreign.html#method.verify_slate_messages).
@@ -524,8 +527,9 @@ where
 		Foreign::check_version(self).map_err(|e| e.kind())
 	}
 
-	fn build_coinbase(&self, block_fees: &BlockFees) -> Result<CbData, ErrorKind> {
-		Foreign::build_coinbase(self, block_fees).map_err(|e| e.kind())
+	fn build_coinbase(&self, block_fees: &BlockFees) -> Result<VersionedCoinbase, ErrorKind> {
+		let cb: CbData = Foreign::build_coinbase(self, block_fees).map_err(|e| e.kind())?;
+		Ok(VersionedCoinbase::into_version(cb, SlateVersion::V2))
 	}
 
 	fn verify_slate_messages(&self, slate: VersionedSlate) -> Result<(), ErrorKind> {
