@@ -22,6 +22,7 @@
 #![deny(unused_mut)]
 #![warn(missing_docs)]
 
+use kepler_wallet_config as config;
 use kepler_wallet_util::kepler_core as core;
 use kepler_wallet_util::kepler_keychain as keychain;
 use kepler_wallet_util::kepler_util as util;

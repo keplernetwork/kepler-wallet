@@ -15,6 +15,7 @@
 //! Types and traits that should be provided by a wallet
 //! implementation
 
+use crate::config::WalletConfig;
 use crate::error::{Error, ErrorKind};
 use crate::kepler_core::core::hash::Hash;
 use crate::kepler_core::core::{Output, Transaction, TxKernel};
@@ -23,7 +24,7 @@ use crate::kepler_core::{global, ser};
 use crate::kepler_keychain::{Identifier, Keychain};
 use crate::kepler_util::secp::key::{PublicKey, SecretKey};
 use crate::kepler_util::secp::{self, pedersen, Secp256k1};
-use crate::kepler_util::ZeroingString;
+use crate::kepler_util::{LoggingConfig, ZeroingString};
 use crate::slate::ParticipantMessages;
 use chrono::prelude::*;
 use failure::ResultExt;
@@ -52,10 +53,20 @@ where
 {
 	/// Sets the top level system wallet directory
 	/// default is assumed to be ~/.kepler/main/wallet_data (or floonet equivalent)
-	fn set_wallet_directory(&mut self, dir: &str);
+	fn set_top_level_directory(&mut self, dir: &str) -> Result<(), Error>;
+
+	/// Sets the top level system wallet directory
+	/// default is assumed to be ~/.kepler/main/wallet_data (or floonet equivalent)
+	fn get_top_level_directory(&self) -> Result<String, Error>;
 
 	/// Output a kepler-wallet.toml file into the current top-level system wallet directory
-	fn create_config(&self, chain_type: &global::ChainTypes, file_name: &str) -> Result<(), Error>;
+	fn create_config(
+		&self,
+		chain_type: &global::ChainTypes,
+		file_name: &str,
+		wallet_config: Option<WalletConfig>,
+		logging_config: Option<LoggingConfig>,
+	) -> Result<(), Error>;
 
 	///
 	fn create_wallet(
@@ -64,6 +75,7 @@ where
 		mnemonic: Option<ZeroingString>,
 		mnemonic_length: usize,
 		password: ZeroingString,
+		test_mode: bool,
 	) -> Result<(), Error>;
 
 	///
