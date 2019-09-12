@@ -278,7 +278,7 @@ where
 		new: ZeroingString,
 	) -> Result<(), Error> {
 		let mut data_dir_name = PathBuf::from(self.data_dir.clone());
-		data_dir_name.push(GRIN_WALLET_DIR);
+		data_dir_name.push(KEPLER_WALLET_DIR);
 		let data_dir_name = data_dir_name.to_str().unwrap();
 		// get seed for later check
 

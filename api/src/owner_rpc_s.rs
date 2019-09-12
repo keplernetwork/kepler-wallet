@@ -1591,7 +1591,7 @@ pub trait OwnerRpcS {
 	/**
 	Networked version of [Owner::get_mnemonic](struct.Owner.html#method.get_mnemonic).
 	```
-	# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+	# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -1622,7 +1622,7 @@ pub trait OwnerRpcS {
 	/**
 	Networked version of [Owner::change_password](struct.Owner.html#method.change_password).
 	```
-	# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+	# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",
@@ -1658,7 +1658,7 @@ pub trait OwnerRpcS {
 	/**
 	Networked version of [Owner::delete_wallet](struct.Owner.html#method.delete_wallet).
 	```
-	# grin_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
+	# kepler_wallet_api::doctest_helper_json_rpc_owner_assert_response!(
 	# r#"
 	{
 		"jsonrpc": "2.0",

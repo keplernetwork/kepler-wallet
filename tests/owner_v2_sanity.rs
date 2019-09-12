@@ -59,7 +59,7 @@ fn owner_v2_sanity() -> Result<(), kepler_wallet_controller::Error> {
 	});
 
 	// run the foreign listener for wallet 2
-	let arg_vec = vec!["kepler-wallet", "-p", "password", "listen", "-l", "23415"];
+	let arg_vec = vec!["kepler-wallet", "-p", "password", "listen", "-l", "27415"];
 	// Set owner listener running
 	thread::spawn(move || {
 		let yml = load_yaml!("../src/bin/kepler-wallet.yml");
@@ -71,10 +71,10 @@ fn owner_v2_sanity() -> Result<(), kepler_wallet_controller::Error> {
 
 	// 1) Send simple retrieve_info request to owner listener
 	let req = include_str!("data/v2_reqs/retrieve_info.req.json");
-	let res = send_request(1, "http://127.0.0.1:3420/v2/owner", req)?;
+	let res = send_request(1, "http://127.0.0.1:7420/v2/owner", req)?;
 	assert!(res.is_ok());
 	let value: RetrieveSummaryInfoResp = res.unwrap();
-	assert_eq!(value.1.amount_currently_spendable, 420000000000);
+	assert_eq!(value.1.amount_currently_spendable, 7000000000000);
 	println!("Response 1: {:?}", value);
 
 	// 2) Send to wallet 2 foreign listener
@@ -84,7 +84,7 @@ fn owner_v2_sanity() -> Result<(), kepler_wallet_controller::Error> {
 		"password",
 		"send",
 		"-d",
-		"http://127.0.0.1:23415",
+		"http://127.0.0.1:27415",
 		"10",
 	];
 	let yml = load_yaml!("../src/bin/kepler-wallet.yml");

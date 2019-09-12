@@ -1577,14 +1577,14 @@ where
 	///
 	/// # Returns
 	/// * Ok(BIP-39 mneminc) if successful
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 	///
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
-	/// use grin_core::global::ChainTypes;
+	/// use kepler_core::global::ChainTypes;
 	///
 	///	// Set up as above
 	/// # let api_owner = Owner::new(wallet.clone());
@@ -1622,14 +1622,14 @@ where
 	///
 	/// # Returns
 	/// * Ok(()) if successful
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 	///
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
-	/// use grin_core::global::ChainTypes;
+	/// use kepler_core::global::ChainTypes;
 	///
 	///	// Set up as above
 	/// # let api_owner = Owner::new(wallet.clone());
@@ -1665,14 +1665,14 @@ where
 	///
 	/// # Returns
 	/// * Ok if successful
-	/// * or [`libwallet::Error`](../grin_wallet_libwallet/struct.Error.html) if an error is encountered.
+	/// * or [`libwallet::Error`](../kepler_wallet_libwallet/struct.Error.html) if an error is encountered.
 	///
 	/// # Example
 	/// Set up as in [`new`](struct.Owner.html#method.new) method above.
 	/// ```
-	/// # grin_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
+	/// # kepler_wallet_api::doctest_helper_setup_doc_env!(wallet, wallet_config);
 	///
-	/// use grin_core::global::ChainTypes;
+	/// use kepler_core::global::ChainTypes;
 	///
 	///	// Set up as above
 	/// # let api_owner = Owner::new(wallet.clone());
