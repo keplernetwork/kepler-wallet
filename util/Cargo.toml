@@ -1,6 +1,6 @@
 [package]
 name = "kepler_wallet_util"
-version = "2.1.0-beta.2"
+version = " 3.0.0-alpha.1"
 authors = ["Kepler Developers <keplernetwork@lists.launchpad.net>"]
 description = "Util, for generic utilities and to re-export kepler crates"
 license = "Apache-2.0"

@@ -59,7 +59,15 @@ fn owner_v2_sanity() -> Result<(), kepler_wallet_controller::Error> {
 	});
 
 	// run the foreign listener for wallet 2
-	let arg_vec = vec!["kepler-wallet", "-p", "password", "listen", "-l", "27415"];
+	let arg_vec = vec![
+		"kepler-wallet",
+		"-p",
+		"password",
+		"listen",
+		"-l",
+		"27415",
+		"-n",
+	];
 	// Set owner listener running
 	thread::spawn(move || {
 		let yml = load_yaml!("../src/bin/kepler-wallet.yml");
