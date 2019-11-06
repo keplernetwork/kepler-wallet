@@ -393,7 +393,7 @@ fn command_line_test_impl(test_dir: &str) -> Result<(), kepler_wallet_controller
 	];
 	execute_command(&app, test_dir, "wallet1", &client1, arg_vec)?;
 
-	let arg_vec = vec!["kepler-wallet", "-p", "password", "check", "-d"];
+	let arg_vec = vec!["kepler-wallet", "-p", "password", "scan", "-d"];
 	execute_command(&app, test_dir, "wallet1", &client1, arg_vec)?;
 
 	// Another file exchange, cancel this time
