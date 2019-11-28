@@ -15,6 +15,7 @@
 //! Functions defining wallet 'addresses', i.e. ed2559 keys based on
 //! a derivation path
 
+use crate::kepler_util::from_hex;
 use crate::kepler_util::secp::key::SecretKey;
 use crate::{Error, ErrorKind};
 use kepler_wallet_util::kepler_keychain::{
@@ -66,6 +67,20 @@ pub fn ed25519_keypair(sec_key: &SecretKey) -> Result<(DalekSecretKey, DalekPubl
 	};
 	let d_pub_key: DalekPublicKey = (&d_skey).into();
 	Ok((d_skey, d_pub_key))
+}
+
+/// Output ed25519 pubkey represented by string
+pub fn ed25519_parse_pubkey(pub_key: &str) -> Result<DalekPublicKey, Error> {
+	let bytes = from_hex(pub_key.to_owned())
+		.context(ErrorKind::AddressDecoding("Can't parse pubkey".to_owned()))?;
+	match DalekPublicKey::from_bytes(&bytes) {
+		Ok(k) => Ok(k),
+		Err(_) => {
+			return Err(
+				ErrorKind::AddressDecoding("Not a valid public key".to_owned()).to_owned(),
+			)?;
+		}
+	}
 }
 
 /// Return the ed25519 public key represented in an onion address
