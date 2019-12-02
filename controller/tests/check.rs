@@ -24,6 +24,7 @@ use self::core::consensus;
 use self::core::global;
 use impls::test_framework::{self, LocalWalletClient};
 use impls::{PathToSlate, SlatePutter as _};
+use kepler_wallet_libwallet as libwallet;
 use libwallet::{InitTxArgs, NodeClient};
 use std::thread;
 use std::time::Duration;

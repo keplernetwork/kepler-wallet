@@ -28,7 +28,7 @@ use crate::util::secp::key::SecretKey;
 use crate::util::ZeroingString;
 use crate::LMDBBackend;
 use failure::ResultExt;
-use kepler_wallet_util::kepler_util::LoggingConfig;
+use kepler_wallet_util::kepler_util::logger::LoggingConfig;
 use std::fs;
 use std::path::PathBuf;
 
