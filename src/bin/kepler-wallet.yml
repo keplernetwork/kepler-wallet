@@ -23,7 +23,7 @@ args:
       takes_value: true
       default_value: default
   - top_level_dir:
-      help: Top directory in which wallet files are stored (location of 'grin-wallet.toml')
+      help: Top directory in which wallet files are stored (location of 'kepler-wallet.toml')
       short: t
       long: top_level_dir
       takes_value: true
