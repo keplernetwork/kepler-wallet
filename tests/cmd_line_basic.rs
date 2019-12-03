@@ -213,6 +213,8 @@ fn command_line_test_impl(test_dir: &str) -> Result<(), kepler_wallet_controller
 
 	let arg_vec = vec![
 		"kepler-wallet",
+		"-a",
+		"mining",
 		"-p",
 		"password",
 		"finalize",
@@ -307,6 +309,8 @@ fn command_line_test_impl(test_dir: &str) -> Result<(), kepler_wallet_controller
 
 	let arg_vec = vec![
 		"kepler-wallet",
+		"-a",
+		"mining",
 		"-p",
 		"password",
 		"finalize",
