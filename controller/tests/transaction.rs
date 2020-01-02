@@ -18,7 +18,7 @@ extern crate kepler_wallet_controller as wallet;
 extern crate kepler_wallet_impls as impls;
 extern crate kepler_wallet_libwallet as libwallet;
 
-use kepler_wallet_util::kepler_core as core;z
+use kepler_wallet_util::kepler_core as core;
 
 use self::core::core::transaction;
 use self::core::global;

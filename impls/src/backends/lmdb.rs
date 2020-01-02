@@ -305,7 +305,7 @@ where
 			.join(filename);
 		let path_buf = Path::new(&path).to_path_buf();
 		let mut stored_tx = File::create(path_buf)?;
-		let tx_hex = util::to_hex(ser::ser_vec(tx).unwrap());;
+		let tx_hex = util::to_hex(ser::ser_vec(tx).unwrap());
 		stored_tx.write_all(&tx_hex.as_bytes())?;
 		stored_tx.sync_all()?;
 		Ok(())

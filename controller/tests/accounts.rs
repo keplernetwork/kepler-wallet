@@ -22,8 +22,8 @@ use kepler_wallet_util::kepler_keychain as keychain;
 
 use self::core::global;
 use self::keychain::{ExtKeychain, Keychain};
-use kepler_wallet_libwallet as libwallet;
 use impls::test_framework::{self, LocalWalletClient};
+use kepler_wallet_libwallet as libwallet;
 use libwallet::InitTxArgs;
 use std::thread;
 use std::time::Duration;

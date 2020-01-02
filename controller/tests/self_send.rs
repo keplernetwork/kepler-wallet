@@ -19,8 +19,8 @@ extern crate kepler_wallet_impls as impls;
 
 use kepler_wallet_util::kepler_core as core;
 
-use kepler_wallet_libwallet as libwallet;
 use impls::test_framework::{self, LocalWalletClient};
+use kepler_wallet_libwallet as libwallet;
 use libwallet::InitTxArgs;
 use std::thread;
 use std::time::Duration;

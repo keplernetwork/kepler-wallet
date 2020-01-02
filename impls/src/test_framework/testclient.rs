@@ -206,7 +206,6 @@ where
 		let mut slate = serde_json::from_str(&m.body).context(
 			libwallet::ErrorKind::ClientCallback("Error parsing TxWrapper".to_owned()),
 		)?;
-;
 		{
 			let mut w_lock = wallet.1.lock();
 			let w = w_lock.lc_provider()?.wallet_inst()?;
