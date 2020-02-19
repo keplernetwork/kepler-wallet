@@ -34,7 +34,7 @@ use crate::util::logger::LoggingConfig;
 use crate::util::secp::key::SecretKey;
 use crate::util::{from_hex, static_secp_instance, Mutex, ZeroingString};
 use std::sync::atomic::{AtomicBool, Ordering};
-use std::sync::mpsc::{channel, Sender};
+use std::sync::mpsc::{channel, Sender, Receiver};
 use std::sync::Arc;
 use std::thread;
 use std::time::Duration;
@@ -71,6 +71,8 @@ where
 	pub updater_running: Arc<AtomicBool>,
 	/// Sender for update messages
 	status_tx: Mutex<Option<Sender<StatusMessage>>>,
+	/// Receiver for update messages
+	status_rx: Mutex<Option<Receiver<StatusMessage>>>,
 	/// Holds all update and status messages returned by the
 	/// updater process
 	updater_messages: Arc<Mutex<Vec<StatusMessage>>>,
@@ -178,12 +180,16 @@ where
 			updater,
 			updater_running,
 			status_tx: Mutex::new(Some(tx)),
+			status_rx: Mutex::new(Some(rx)),
 			updater_messages,
 			tor_config: Mutex::new(None),
 		}
 	}
 
 	pub fn start_updater_log(&self) {
+		let mut rx = self.status_rx.lock();
+		let rx = rx.take().unwrap();
+
 		start_updater_log_thread(rx, self.updater_messages.clone());
 	}
 
