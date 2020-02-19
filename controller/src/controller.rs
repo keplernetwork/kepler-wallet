@@ -600,6 +600,7 @@ where
 		running_foreign: bool,
 	) -> OwnerAPIHandlerV3<L, C, K> {
 		let owner_api = Owner::new(wallet.clone());
+		owner_api.start_updater_log();
 		owner_api.set_tor_config(tor_config);
 		let owner_api = Arc::new(owner_api);
 		OwnerAPIHandlerV3 {

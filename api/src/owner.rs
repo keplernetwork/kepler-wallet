@@ -170,7 +170,6 @@ where
 		)));
 
 		let updater_messages = Arc::new(Mutex::new(vec![]));
-		let _ = start_updater_log_thread(rx, updater_messages.clone());
 
 		Owner {
 			wallet_inst,
@@ -182,6 +181,10 @@ where
 			updater_messages,
 			tor_config: Mutex::new(None),
 		}
+	}
+
+	pub fn start_updater_log(&self) {
+		start_updater_log_thread(rx, self.updater_messages.clone());
 	}
 
 	/// Set the TOR configuration for this instance of the OwnerAPI, used during
